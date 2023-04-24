@@ -106,7 +106,19 @@ export default function ElleVueFirst(props) {
   const [dataStatut,setDataStatut]=React.useState([])
   const [statutData,setStatutData]=React.useState([])
   const [loader,setLoader] =React.useState(true)
- 
+  const [donneeUser,setDonneeUser]=useState([])
+  const [donneeUserName,setDonneeUserName]=useState("")
+  const [donneeUserEmail,setDonneeUserEmail]=useState("")
+  const [recharg,setRecharg]=useState('')
+  const [titrea, setTitre] = useState('')
+  const [gifAcceuil,setGifAcceuil] = useState('')
+  const [textA,setTextA] = useState('')
+  const [lienVideoA,setLienVideoA] = useState('')
+  const [stat,setStat]=useState([])
+  const [anime,setAnime]=useState(true)
+
+
+
   function getDataAnnonce(){
    refAnnonce.onSnapshot((querySnapshot) => { 
      const items = []
@@ -141,9 +153,7 @@ export default function ElleVueFirst(props) {
     })
    }
 
-  const [donneeUser,setDonneeUser]=useState([])
-  const [donneeUserName,setDonneeUserName]=useState("")
-  const [donneeUserEmail,setDonneeUserEmail]=useState("")
+
   function subscribed (){ firebase.firestore()
     .collection('2023USER')
     .doc(currentUserNewNav.email)
@@ -162,6 +172,7 @@ export default function ElleVueFirst(props) {
     // setMes(doc.data().name)
     })}
   
+
   React.useEffect(() =>{
    getData()
    getDataAnnonce()
@@ -169,7 +180,6 @@ export default function ElleVueFirst(props) {
     subscribed()
   },[recharg])
 
-  const [recharg,setRecharg]=useState('')
   function ajouterComm(){
     // debut ajouter tableau
     const washingtonRef = firebase.firestore().collection("2023TWITT").doc(ElleTwitt)
@@ -203,10 +213,7 @@ export default function ElleVueFirst(props) {
        if (webviewRef.current) webviewRef.current.goBack();
      }
     
-     const [titrea, setTitre] = useState('')
-     const [gifAcceuil,setGifAcceuil] = useState('')
-     const [textA,setTextA] = useState('')
-     const [lienVideoA,setLienVideoA] = useState('')
+
 
      function afficherAnnonce(titre,gifAcceuil,text,lienVideo){
         setTitre(titre)
@@ -216,13 +223,11 @@ export default function ElleVueFirst(props) {
         setModalAnnonces(true)
      }
      
-     const [stat,setStat]=useState([])
      function afficherStatut(li){
       setModalStatut(true)
       setStat(li)
      }
 
-     const [anime,setAnime]=useState(true)
      useEffect(() => {
        setTimeout(() => {
         setAnime(false);   
@@ -397,13 +402,6 @@ export default function ElleVueFirst(props) {
       }
 
   </ScrollView>
-
-  
-
-
- 
-
- 
  
   </KeyboardAwareScrollView>
   </SafeAreaView>
@@ -814,6 +812,7 @@ const Annonces = ({setModalAnnonces,modalAnnonces,text,image,titre,lienVideo,set
     setModalAnnonces(false)
  }
  const [nomInscrit,setNomInscrit]=useState('')
+ const [telInscrit,setTelInscrit]=useState(0)
   return(
     <Modal animationType='slide'
     // transparent={true}
@@ -856,7 +855,7 @@ const Annonces = ({setModalAnnonces,modalAnnonces,text,image,titre,lienVideo,set
         <TextInput
         style={{height: 40,margin: 12,borderWidth: 1,padding: 10,width:WIDTH*0.8,alignSelf:'center',borderRadius:20}}
         onChangeText={setNomInscrit}
-        value={nomInscrit}
+        value={telInscrit}
         placeholderTextColor='#000'
         placeholder="telephone"
         keyboardType="numeric"
