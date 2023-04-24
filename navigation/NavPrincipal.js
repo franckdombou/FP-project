@@ -154,7 +154,7 @@ return (
       },
      // headerShown:false,
       //tabBarActiveTintColor:'white',
-      tabBarActiveTintColor: '#87CEEB',
+      tabBarActiveTintColor: 'rgb(249, 180, 45)',
       tabBarInactiveTintColor: 'gray',
 
   })}

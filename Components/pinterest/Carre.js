@@ -25,8 +25,8 @@ const Carre = ({taille,name,size,image,price,batterie,couleur,origine,stock,ecra
             <Image source={{uri:image}} style={{height:250,width:'100%',borderRadius:20}} />
         </TouchableOpacity>
         <View style={{justifyContent:'space-between',flexDirection:'row',paddingLeft:7,paddingRight:7}}>
-            <Text style={{marginTop:7,color:'#fff',fontWeight:'bold'}}> {name.length>7 ? name.slice(0,7)+"...":name } </Text>
-            <Text style={{marginTop:7,color:'#fff',fontWeight:'bold'}}> {price}fcfa </Text>
+            <Text style={{marginTop:7,color:'#000',fontWeight:'bold',fontSize:10}}> {name.length>7 ? name.slice(0,10)+"...":name } </Text>
+            <Text style={{marginTop:7,color:'#000',fontWeight:'bold',fontSize:10}}> {price}fcfa </Text>
             
         </View>
       

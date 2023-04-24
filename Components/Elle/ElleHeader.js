@@ -14,9 +14,9 @@ const ElleHeader = () => {
           <Text style={vueElle=="ElleVueFirst" ? styles.onText : styles.offText } >Actu Polytech</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={()=>setVueElle("ellepost")} style={vueElle=="ellepost" ? styles.onbutton : styles.offbutton }>
+       {/* <TouchableOpacity onPress={()=>setVueElle("ellepost")} style={vueElle=="ellepost" ? styles.onbutton : styles.offbutton }>
           <Text style={vueElle=="ellepost" ? styles.onText : styles.offText } >post</Text>
-        </TouchableOpacity>
+        </TouchableOpacity>*/}
 
         <TouchableOpacity onPress={()=>setVueElle("ellevue3")} style={vueElle=="ellevue3" ? styles.onbutton : styles.offbutton }>
           <Text style={vueElle=="ellevue3" ? styles.onText : styles.offText } >Opportunites</Text>
@@ -29,7 +29,7 @@ const ElleHeader = () => {
 
 const styles = StyleSheet.create({
   onbutton:{
-      backgroundColor:'#00BFFF',
+      backgroundColor:'rgb(249, 180, 45)',
       height:20,
       marginLeft:10,
       marginRight:10,

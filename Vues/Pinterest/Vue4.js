@@ -171,7 +171,7 @@ const [anime,setAnime]=useState(true)
   const [modalStatut,setModalStatut]= useState(false)
 
   return (
-    <SafeAreaView style={{backgroundColor:'#000'}}>
+    <SafeAreaView style={{backgroundColor:'rgba(255,255,255,0.1)'}}>
     <ScrollView style={{marginBottom:1,}}>
       
       
@@ -179,7 +179,7 @@ const [anime,setAnime]=useState(true)
         <Video isMuted shouldPlay source={{uri}} style={{width:WIDTH,height:200,}} useNativeControls resizeMode='cover' />      
       </ImageBackground>*/}
       
-      <ScrollView horizontal style={{height:107,width:WIDTH,backgroundColor:'#000',padding:5,}}>
+      <ScrollView horizontal style={{height:107,width:WIDTH,backgroundColor:'rgba(255,255,255,0.1)',padding:5,}}>
   {
     statutData.map((list,index)=>
     <React.Fragment key={index}>
@@ -192,7 +192,7 @@ const [anime,setAnime]=useState(true)
     )
   }
       </ScrollView>
-<View style={{height:1,width:WIDTH,backgroundColor:'#bbbb'}}></View>
+<View style={{height:1,width:WIDTH,backgroundColor:'#bbb'}}></View>
 
 {/*<ImageBackground style={{height:150}} source={require('../../assets/iphonegif2.gif')}></ImageBackground>*/}
 <View style={{flexDirection:'row',justifyContent:'space-between',padding:10}}>
@@ -201,10 +201,10 @@ const [anime,setAnime]=useState(true)
 </View>
 
 
-      <View style={{width:WIDTH,backgroundColor:'#000',height:55,padding:10,marginTop:15}}>
-        <Text style={{color:'#fff',textAlign:'center',fontWeight:'bold',marginTop:5,fontSize:20}}>Accessoires</Text>
+      <View style={{width:WIDTH,backgroundColor:'rgba(255,255,255,0.1)',height:55,padding:10,marginTop:15}}>
+        <Text style={{color:'#000',fontWeight:'bold',marginTop:5,fontSize:20}}>ACCESSOIRES</Text>
       </View>
-      <ScrollView horizontal style={{margin:7}}>
+      <ScrollView horizontal style={{width:WIDTH}}>
         {
           dataAcc.map((list,index)=>
             <Accessoires similaire={list.Similaire} batterie={list.batterie} couleur={list.couleur} origine={list.origine} stock={list.stock} ecran={list.ecran} price={list.prix} name={list.nom} image={list.image} size={list.taille} taille={index} key={index} />
@@ -212,8 +212,8 @@ const [anime,setAnime]=useState(true)
         }
       </ScrollView>
 
-      <View style={{width:WIDTH,backgroundColor:'#000',height:55,padding:10,marginTop:15}}>
-        <Text style={{color:'#fff',textAlign:'center',fontWeight:'bold',marginTop:5,fontSize:20}}>What's New</Text>
+      <View style={{width:WIDTH,backgroundColor:'rgba(255,255,255,0.1)',height:55,padding:10,marginTop:15}}>
+        <Text style={{color:'#000',fontWeight:'bold',marginTop:5,fontSize:20}}>TELEPHONES</Text>
       </View>
       <View style={{flexDirection:'row',flexWrap:'wrap',justifyContent:'space-between',marginBottom:150,padding:10}}>     
       
@@ -388,7 +388,8 @@ function subscriberINUTILE(prix){ firebase.firestore()
       //prixPanier:Number(prixTotPanierUser)+Number(ChooseChoise[3]),
       userPanier: arrayUnion({"etat":"panier", "image": ChooseChoise[1] ,"nom": ChooseChoise[0], "prix":ChooseChoise[3],"qty":1})
     });
-    Alert.alert('Ajouté au panier avec succes!!! ')
+   // Alert.alert('Ajouté au panier avec succes!!! ')
+   setModalOK(true)
    }
 
    function annuler({image,nom,prix,}){
@@ -399,11 +400,14 @@ function subscriberINUTILE(prix){ firebase.firestore()
       userPanier: arrayRemove({"etat":"panier", "image": image ,"nom": nom, "prix":prix})
     });
    // setModalComm(!modalComm)
-    Alert.alert('Ajouté au panier avec succes!!! ')
+   // Alert.alert('Ajouté au panier avec succes!!! ')
+   setModalOK(true)
 //    console.log(washingtonRef) 
    }
    //FIN COMMENTAIRE
   const [modalSimlaire,setModalSimilaire]= useState(false)
+
+  const [modalOK,setModalOK]=useState(false)
 
 
   return(
@@ -418,18 +422,18 @@ function subscriberINUTILE(prix){ firebase.firestore()
 
     
 
-      <ImageBackground source={{uri:ChooseChoise[1]}} style={{height:HEIGHT,marginBottom:20}}>
-      <ScrollView>
+      <ImageBackground source={require('../../assets/icons/fondiphon2.png')} style={{height:HEIGHT,marginBottom:20}}>
+      <ScrollView style={{}}>
         <View style={{flexDirection:'row',justifyContent:'space-between',margin:10}}>
-          <TouchableOpacity style={{height:40,width:40}} onPress={()=>setModalChoose(false)}>
-            <Text style={{fontSize:30,fontWeight:'800',color:'red'}}> {"<"} </Text>
+          <TouchableOpacity style={{height:40,width:40,backgroundColor:'rgba(255,255,255,0.5)',borderRadius:50}} onPress={()=>setModalChoose(false)}>
+            <Text style={{fontSize:30,fontWeight:'800',color:'rgb(249, 180, 45)'}}> {"<"} </Text>
           </TouchableOpacity>
           <TouchableOpacity>
             <Text style={{fontSize:30,fontWeight:'800',color:'red'}}></Text>
           </TouchableOpacity>
         </View>
 
-        <ScrollView horizontal style={{height:HEIGHT*0.4,width:WIDTH,}}>
+        <ScrollView horizontal style={{width:WIDTH,}}>
         {
         tab.map((list,key)=>
           <Image resizeMode='contain' resizeMethod='resize' key={key} style={{height:370,width:WIDTH*0.9,marginRight:4}} source={{uri:ChooseChoise[1]}} />
@@ -437,25 +441,25 @@ function subscriberINUTILE(prix){ firebase.firestore()
       }
         </ScrollView>
 
-        <View style={{backgroundColor:'#484848',borderBottomLeftRadius:30,borderBottomRightRadius:30}}>
+        <View style={{backgroundColor:'rgba(255,255,255,0.9)',borderBottomLeftRadius:30,borderBottomRightRadius:30}}>
           <View style={{flexDirection:'column',padding:10,alignContent:'center',alignSelf:'center'}}>
           <View style={{flexDirection:'row',justifyContent:'space-around',}}>
           <View style={{width:WIDTH*0.45,padding:10}}>
-            <Text style={{color:'white',fontSize:12,fontWeight:'800'}}>{ChooseChoise[0]}</Text>
-            <Text style={{color:'white',fontSize:12,fontWeight:'800'}}>batterie : {ChooseChoise[4]}%</Text>
-            <Text style={{color:'white',fontSize:12,fontWeight:'800'}}>origine : {ChooseChoise[6]}</Text>
-            <Text style={{color:'white',fontSize:12,fontWeight:'800'}}>stock : {ChooseChoise[7]}</Text>
+            <Text style={{color:'#000',fontSize:12,fontWeight:'800'}}>{ChooseChoise[0]}</Text>
+            <Text style={{color:'#000',fontSize:12,fontWeight:'800'}}>batterie : {ChooseChoise[4]}%</Text>
+            <Text style={{color:'#000',fontSize:12,fontWeight:'800'}}>origine : {ChooseChoise[6]}</Text>
+            <Text style={{color:'#000',fontSize:12,fontWeight:'800'}}>stock : {ChooseChoise[7]}</Text>
           </View>
           <View style={{width:WIDTH*0.45,padding:15}}>
-            <Text style={{color:'white',fontSize:12,fontWeight:'800'}}>Prix : {ChooseChoise[3]} fcfa</Text>
-            <Text style={{color:'white',fontSize:12,fontWeight:'800'}}>ecran : {ChooseChoise[8]}</Text>
-            <Text style={{color:'white',fontSize:12,fontWeight:'800'}}>couleur : {ChooseChoise[5]}</Text>
-            <Text style={{color:'white',fontSize:12,fontWeight:'800'}}>64Go</Text>
+            <Text style={{color:'#000',fontSize:12,fontWeight:'800'}}>Prix : {ChooseChoise[3]} fcfa</Text>
+            <Text style={{color:'#000',fontSize:12,fontWeight:'800'}}>ecran : {ChooseChoise[8]}</Text>
+            <Text style={{color:'#000',fontSize:12,fontWeight:'800'}}>couleur : {ChooseChoise[5]}</Text>
+            <Text style={{color:'#000',fontSize:12,fontWeight:'800'}}>64Go</Text>
           </View>
           </View>
 
-          <TouchableOpacity onPress={()=>ajouter()} style={{backgroundColor:'green',height:50,width:200,justifyContent:'center',marginTop:10,borderRadius:10,marginBottom:10,alignSelf:'center'}}>
-            <Text style={{alignSelf:'center',fontWeight:'bold',color:'#fff'}}>Ajouter au panier</Text>
+          <TouchableOpacity onPress={()=>ajouter()} style={{backgroundColor:'rgb(249, 180, 45)',height:50,width:200,justifyContent:'center',marginTop:10,borderRadius:10,marginBottom:10,alignSelf:'center'}}>
+            <Text style={{alignSelf:'center',fontWeight:'bold',color:'#000'}}>Ajouter au panier</Text>
           </TouchableOpacity>
           
           </View>
@@ -482,10 +486,10 @@ function subscriberINUTILE(prix){ firebase.firestore()
 
         {/** ARTICLES SIMILAIRES */}
 
-        <Text style={{alignSelf:'center',fontSize:15,fontWeight:'700',color:'white',marginTop:25}}>Autres {ChooseChoise[0]}</Text>
+        <Text style={{alignSelf:'center',fontSize:15,fontWeight:'700',color:'white',marginTop:25,marginBottom:20}}>Articles Similaires</Text>
 
 
-        <View style={{flexDirection:'row',flexWrap:'wrap',justifyContent:'space-between',marginBottom:250,padding:15}}>
+        <View style={{flexDirection:'row',flexWrap:'wrap',justifyContent:'space-between',marginBottom:250,padding:15,backgroundColor:'rgba(255,255,255,0.9)',borderRadius:20}}>
           {
             valChoose.map((list,key)=>
               <CarreSimilaire setModalSimilaire={setModalSimilaire} onClose={()=>setModalSimilaire(false)} modalSimlaire={modalSimlaire} similaire={list.Similaire} batterie={list.batterie} couleur={list.couleur} origine={list.origine} stock={list.stock} ecran={list.ecran} price={list.prix} name={list.nom} image={list.image} size={list.taille} taille={key} key={key}  />
@@ -499,6 +503,24 @@ function subscriberINUTILE(prix){ firebase.firestore()
         </ScrollView>
       </ImageBackground>
     </SafeAreaView>
+
+{/** modal ok */}
+    <Modal animationType='fade'
+    transparent={true}
+    visible={modalOK}
+    onRequestClose={() => {
+      setModalOK(!modalOK)
+  }}
+  >
+    <SafeAreaView style={{backgroundColor:'rgba(0,0,0,0.9)',height:HEIGHT}}>
+      <View  style={{backgroundColor:'#fff',height:100,width:300,borderRadius:20,alignSelf:'center',marginTop:HEIGHT*0.4}}>
+          <Text style={{fontSize:15,fontWeight:'600',textAlign:'center',marginTop:10}}>ajouter au panier avec succes!!!</Text>
+          <TouchableOpacity style={{height:30,width:100,backgroundColor:'rgb(249, 180, 45)',borderRadius:20,alignSelf:'center',marginTop:30}} onPress={()=>setModalOK(false)}>
+            <Text style={{textAlign:'center',fontWeight:'800',fontSize:20,marginTop:3}}>OK</Text>
+          </TouchableOpacity>
+      </View>
+    </SafeAreaView>
+  </Modal>
           
   </Modal>
 
@@ -628,8 +650,8 @@ const ModPanier = ()=>{
             <Image source={{uri:image}} style={{height:230,width:'100%',borderRadius:20}} />
           </TouchableOpacity>
           <View style={{justifyContent:'space-between',flexDirection:'row',paddingLeft:7,paddingRight:7}}>
-            <Text style={{marginTop:7,color:'#fff',fontWeight:'bold',fontSize:12}}> {name.length>7 ? name.slice(0,7)+'...':name} </Text>
-            <Text style={{marginTop:7,color:'#fff',fontWeight:'bold',fontSize:12}}> {price} fcfa </Text>
+            <Text style={{marginTop:7,color:'#000',fontWeight:'bold',fontSize:12}}> {name.length>7 ? name.slice(0,7)+'...':name} </Text>
+            <Text style={{marginTop:7,color:'#000',fontWeight:'bold',fontSize:12}}> {price} fcfa </Text>
           </View>
           {modalSimlaire && <ModalSim  batterie={batterie} couleur={couleur} origine={origine} stock={stock} ecran={ecran} price={price} name={name} image={image} size={taille}  setModalSimilaire={setModalSimilaire} modalSimlaire={modalSimlaire} onClosef={onClose}  /> }
       </SafeAreaView>
@@ -698,48 +720,51 @@ const ModPanier = ()=>{
     return(
       <Modal visible={modalSimlaire} animationType='fade'>
         <SafeAreaView style={{height:HEIGHT,backgroundColor:'#000'}}>
+      <ImageBackground source={require('../../assets/icons/fondiphon2.png')} style={{height:HEIGHT,marginBottom:20}}>
+          
         <ScrollView>
         <View style={{flexDirection:'row',justifyContent:'space-between',margin:10}}>
-          <TouchableOpacity style={{height:40,width:40}} onPress={()=>setModalSimilaire(false)}>
-            <Text style={{fontSize:30,fontWeight:'800',color:'#fff'}}> X </Text>
+          <TouchableOpacity style={{height:40,width:40,backgroundColor:'rgba(255,255,255,0.5)',borderRadius:30}} onPress={()=>setModalSimilaire(false)}>
+            <Text style={{fontSize:25,fontWeight:'800',color:'rgb(249, 180, 45)',textAlign:'center',marginTop:5}}> X </Text>
           </TouchableOpacity>
           <TouchableOpacity>
             <Text style={{fontSize:30,fontWeight:'800',color:'red'}}></Text>
           </TouchableOpacity>
         </View>
 
-        <ScrollView horizontal style={{height:400,width:WIDTH,backgroundColor:'#FFF'}}>
+        <ScrollView horizontal style={{width:WIDTH,}}>
         {
         tab.map((list,key)=>
-          <Image resizeMode='contain' resizeMethod='resize' key={key} style={{height:400,width:WIDTH*0.95,marginRight:4}} source={{uri:image}} />
+          <Image resizeMode='contain' resizeMethod='resize' key={key} style={{height:300,width:WIDTH*0.95,marginRight:4}} source={{uri:image}} />
         )
       }
         </ScrollView>
 
-        <View style={{backgroundColor:'#484848',borderBottomLeftRadius:30,borderBottomRightRadius:30}}>
+        <View style={{backgroundColor:'rgba(255,255,255,0.5)',borderBottomLeftRadius:30,borderBottomRightRadius:30}}>
           <View style={{flexDirection:'column',padding:10,alignContent:'center',alignSelf:'center'}}>
           <View style={{flexDirection:'row',justifyContent:'space-around',}}>
           <View style={{width:WIDTH*0.45,padding:10}}>
-            <Text style={{color:'white',fontSize:12,fontWeight:'800'}}>{name}</Text>
-            <Text style={{color:'white',fontSize:12,fontWeight:'800'}}>batterie : {batterie}%</Text>
-            <Text style={{color:'white',fontSize:12,fontWeight:'800'}}>origine : {origine}</Text>
-            <Text style={{color:'white',fontSize:12,fontWeight:'800'}}>stock : {stock}</Text>
+            <Text style={{color:'#000',fontSize:12,fontWeight:'800'}}>{name}</Text>
+            <Text style={{color:'#000',fontSize:12,fontWeight:'800'}}>batterie : {batterie}%</Text>
+            <Text style={{color:'#000',fontSize:12,fontWeight:'800'}}>origine : {origine}</Text>
+            <Text style={{color:'#000',fontSize:12,fontWeight:'800'}}>stock : {stock}</Text>
           </View>
           <View style={{width:WIDTH*0.45,padding:15}}>
-            <Text style={{color:'white',fontSize:12, fontWeight:'800'}}>Prix : {price}K fcfa</Text>
-            <Text style={{color:'white',fontSize:12,fontWeight:'800'}}>ecran : {ecran}</Text>
-            <Text style={{color:'white',fontSize:12,fontWeight:'800'}}>couleur : {couleur}</Text>
-            <Text style={{color:'white',fontSize:12,fontWeight:'800'}}>64Go</Text>
+            <Text style={{color:'#000',fontSize:12, fontWeight:'800'}}>Prix : {price}K fcfa</Text>
+            <Text style={{color:'#000',fontSize:12,fontWeight:'800'}}>ecran : {ecran}</Text>
+            <Text style={{color:'#000',fontSize:12,fontWeight:'800'}}>couleur : {couleur}</Text>
+            <Text style={{color:'#000',fontSize:12,fontWeight:'800'}}>64Go</Text>
           </View>
           </View>
-          <TouchableOpacity onPress={()=>ajouter()} style={{backgroundColor:'green',height:50,width:200,justifyContent:'center',marginTop:10,borderRadius:10,marginBottom:10,alignSelf:'center'}}>
-            <Text style={{alignSelf:'center',fontWeight:'bold',color:'#fff'}}>Ajouter au panier</Text>
+          <TouchableOpacity onPress={()=>ajouter()} style={{backgroundColor:'rgb(249, 180, 45)',height:50,width:200,justifyContent:'center',marginTop:10,borderRadius:10,marginBottom:10,alignSelf:'center'}}>
+            <Text style={{alignSelf:'center',fontWeight:'bold',color:'#000'}}>Ajouter au panier</Text>
           </TouchableOpacity>
         
           </View>
 
         </View>
         </ScrollView>
+        </ImageBackground>
         </SafeAreaView>
       </Modal>
     )
@@ -759,8 +784,8 @@ const ModPanier = ()=>{
     return(
       <TouchableOpacity onPress={()=>VoirChoose()}>
       <View style={{flexDirection:'column'}}>
-        <Image source={{uri:image}} style={{height:120,width:150,borderRadius:50,backgroundColor:'red',margin:5}} />
-        <Text style={{color:'#fff',textAlign:'center',fontWeight:'bold'}}>{name}</Text>
+        <Image source={{uri:image}} style={{height:150,width:150,borderRadius:20,backgroundColor:'red',margin:5}} />
+        <Text style={{color:'rgba(0,0,0,.5)',textAlign:'center',fontWeight:'bold'}}>{name}</Text>
       </View>
       </TouchableOpacity>
     )

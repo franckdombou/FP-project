@@ -9,6 +9,9 @@ import { UserContextNewNav } from '../../navigation/NewNav';
 //import firebase from '../config'
 import {onAuthStateChanged} from "firebase/auth"
 import { auth } from '../../config';
+import Ionicons from '@expo/vector-icons/Ionicons';
+
+
 
 const WIDTH = Dimensions.get('window').width
 const HEIGHT = Dimensions.get('window').height
@@ -345,7 +348,8 @@ let str = 0
 
 
     <TouchableOpacity onPress={()=>setModalPanier(true)} style={{backgroundColor:'#fff',height:50,width:50,borderRadius:30,alignContent:'center',padding:4,marginTop:102}}>
-    <Image style={{height:30,width:30,alignSelf:'center',marginTop:5,marginBottom:2}} source={require('../../assets/icons/panier.png')} />
+    {/*<Image style={{height:30,width:30,alignSelf:'center',marginTop:5,marginBottom:2}} source={require('../../assets/icons/panier.png')} />*/}
+    <Ionicons  name="cart" size="40" color="rgb(249, 180, 45)" />
     {currentPanier.length > 0 ?
       <View style={{backgroundColor:'red',height:13,width:13,borderRadius:50,position:'absolute',right:0}}>
         <Text style={{color:'#fff',fontSize:10,textAlign:'center',fontWeight:'bold'}}>{currentPanier.length}</Text>

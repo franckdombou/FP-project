@@ -184,6 +184,7 @@ export default function ElleVueFirst(props) {
     });
    // setModalComm(!modalComm)
    setRecharg(commentValue)
+   setModalElleCommentaire(false)
     Alert.alert('Commentaire envoyé!!! ')
     
    }
@@ -237,15 +238,15 @@ export default function ElleVueFirst(props) {
 
   return (
     <SafeAreaView style={{}}>
-    <ScrollView style={{backgroundColor:'#000',}}>
+    <ScrollView style={{backgroundColor:'#fff',}}>
 
-    <ScrollView horizontal style={{height:107,width:WIDTH,backgroundColor:'#000',padding:5,}}>
+    <ScrollView horizontal style={{height:107,width:WIDTH,backgroundColor:'#fff',padding:5,}}>
   {
     statutData.map((list,index)=>
     <React.Fragment key={index}>
     <Pressable style={{marginBottom:15}} onPress={()=>afficherStatut(list.statutData)}>
       <Image source={{uri:list.img}} style={{height:65,width:65,backgroundColor:'#fff', borderRadius:50,margin:5,marginBottom:2}} />
-      <Text style={{color:'#fff',textAlign:'center',fontSize:10,fontWeight:'bold'}}>{list.text.length>5? list.text.slice(0,5)+'...': list.text}</Text>
+      <Text style={{color:'#000',textAlign:'center',fontSize:10,fontWeight:'bold'}}>{list.text.length>5? list.text.slice(0,5)+'...': list.text}</Text>
       </Pressable>
       {modalStatut && <StatutWrapper key={index} stat={stat} statutdata2={list.statutData} profile={list} modalStatut={modalStatut} onClose={(()=>setModalStatut(false)) } />}
       </React.Fragment>
@@ -263,14 +264,16 @@ export default function ElleVueFirst(props) {
         :
         list.tweet=="annonce"  ?
         <React.Fragment key={key}>
-        <Text style={{color:'#fff',fontWeight:'800',marginTop:10,marginLeft:25,fontSize:19}}>annonces</Text>
+      <View style={{height:0.4,width:WIDTH,backgroundColor:'#bbbb',}}></View>
+
+        <Text style={{color:'#000',fontWeight:'800',marginTop:10,marginLeft:25,fontSize:15}}>annonces</Text>
         <ScrollView horizontal style={{}}>
           {
             dataAnnonce.map((e,ind)=>
             <React.Fragment key={ind}>
               <TouchableOpacity onPress={()=>afficherAnnonce(e.titre,e.gifAcceuil,e.text,e.lienVideo)}>
-            <Image source={{uri:e.gifAcceuil}} style={{height:180,width:150,backgroundColor:'red',borderRadius:20,margin:7}} />
-            <Text style={{color:'#fff',marginBottom:10,textAlign:'center'}}>{e.titre}</Text>
+            <Image source={{uri:e.gifAcceuil}} style={{height:180,width:150,backgroundColor:'rgb(249, 180, 45)',borderRadius:20,margin:7}} />
+            <Text style={{color:'#000',marginBottom:10,textAlign:'center',fontSize:13}}>{e.titre}</Text>
             </TouchableOpacity>
             {modalAnnonces && <Annonces setLienVideoA={setLienVideoA} lienVideoA={lienVideoA} gifAcceuil={gifAcceuil} setGifAcceuil={setGifAcceuil} setTitre={setTitre} titra={titrea} setTextA={setTextA} textA={textA} titre={e.titre} image={e.gifAcceuil} text={e.text} lienVideo={e.lienVideo} modalAnnonces={modalAnnonces} setModalAnnonces={setModalAnnonces} />}
             </React.Fragment>
@@ -281,7 +284,7 @@ export default function ElleVueFirst(props) {
         <View style={{height:0.5,width:WIDTH,backgroundColor:'#bbbb'}}></View>
         
         </React.Fragment>
-        : <View key={key} style={{backgroundColor:'#000'}}>
+        : <View key={key} style={{backgroundColor:'#fff'}}>
           <Text style={{color:"#bbb",textAlign:'center',fontWeight:'bold',padding:10,fontSize:10}}>23/11/2023</Text>
         </View>
         )
@@ -308,35 +311,38 @@ export default function ElleVueFirst(props) {
       setModalElleCommentaire(!modalElleCommentaire)
    }}
    >
-    <SafeAreaView>
+    <SafeAreaView style={{paddingTop:125}}>
 
-   <KeyboardAwareScrollView> 
+   
     
-  <ScrollView style={{backgroundColor:'#000'}}>
+   <KeyboardAwareScrollView> 
+   
+  <ScrollView style={{backgroundColor:'#fff',position:'relative'}}>
 
-      <TouchableOpacity style={{marginTop:10,marginLeft:5,marginBottom:7}} onPress={()=>setModalElleCommentaire(!modalElleCommentaire)}>
-       <Text style={{fontSize:30,fontWeight:'900',color:'rgba(255, 255, 255, 0.5)',marginLeft:5}}>{"<"}</Text>
-      </TouchableOpacity>
+  <TouchableOpacity style={{marginTop:10,marginLeft:5,marginBottom:7,height:40,width:40,paddingLeft:10}} onPress={()=>setModalElleCommentaire(!modalElleCommentaire)}>
+       <Text style={{fontSize:30,fontWeight:'900',color:'rgba(0, 0, 0, 0.5)',marginLeft:5}}>{"<"}</Text>
+    </TouchableOpacity>
 
-    <View style={{flexDirection:'row',marginTop:5}}>
+
+    <View style={{flexDirection:'row',marginTop:5,padding:10}}>
       <Image style={{height:50,width:50,borderRadius:40}} source={{uri:ElleImageTitre}} />
       <View style={{flexDirection:'column'}}>
         <View style={{flexDirection:'row'}}>
-          <Text style={{fontSize:15,fontWeight:'900',color:'#fff',marginLeft:5}}>{ElleNomTitre}</Text>
-          <Image style={{height:20,width:20,borderRadius:40}} source={require('../../assets/icons/twitter.png')} />
+          <Text style={{fontSize:13,fontWeight:'900',color:'#bbb',marginLeft:5}}>{ElleNomTitre}</Text>
+          <Image style={{height:20,width:20,borderRadius:40,paddingLeft:10}} source={require('../../assets/icons/twitorang.png')} />
         </View>
-        <Text style={{fontSize:15,fontWeight:'900',color:'rgba(255, 255, 255, 0.5)',marginLeft:5}}>@PolytechniqueYaounde</Text>
+        <Text style={{fontSize:10,fontWeight:'900',color:'rgba(0, 0, 0, 0.5)',marginLeft:5}}>@PolytechniqueYaounde</Text>
         </View>
     </View>
 
-      <View style={{backgroundColor:'#000'}}>
+      <View style={{backgroundColor:'#fff'}}>
         
-          <View style={{width:WIDTH,borderRadius:40,margin:5}}>
-              <Text style={{color:'#fff',fontSize:20,margin:5}}> {ElleTextComments} </Text>
+          <View style={{width:WIDTH*0.9,borderRadius:40,margin:5,paddingLeft:10,paddingRight:10}}>
+              <Text style={{color:'#000',fontSize:20,margin:5}}> {ElleTextComments} </Text>
           </View>
          { ElleVideoTwitt=="photo" ?
           <View>
-          <Image resizeMode='contain' style={{height:300,width:WIDTH,borderRadius:5}} source={{uri:ElleImageTwitt}} />
+          <Image resizeMode='contain' style={{height:HEIGHT*0.3,width:WIDTH*0.9,borderRadius:5,backgroundColor:'#000',borderRadius:30,alignSelf:'center'}} source={{uri:ElleImageTwitt}} />
           </View>
         :
         <View style={{width:300,height:370,borderRadius:20,backgroundColor:'red',alignSelf:'center'}}>
@@ -353,43 +359,43 @@ export default function ElleVueFirst(props) {
         }
        
         
-        <View style={{flexDirection:'row',marginLeft:10,marginTop:5,marginBottom:10}}>
+        <View style={{flexDirection:'row',marginLeft:10,marginTop:5,marginBottom:10,paddingLeft:10}}>
             
-          <View style={{flexDirection:'row'}}>
-              <Text style={{color:'#fff',fontSize:20,fontWeight:'bold'}}>{ElleComments.length}</Text>
-              <Text style={{color:'rgba(255, 255, 255, 0.5)',marginRight:5,marginLeft:5,marginTop:5}}>Commentaires</Text>
+          <View style={{flexDirection:'row',}}>
+              <Text style={{color:'#bbb',fontSize:20,fontWeight:'bold'}}>{ElleComments.length}</Text>
+              <Text style={{color:'#bbb',marginRight:5,marginLeft:5,marginTop:5}}>Commentaires</Text>
           </View>
             
           <View style={{flexDirection:'row',marginLeft:10}}>
-              <Text style={{color:'#fff',fontSize:20,fontWeight:'bold'}}>{ElleLike.length}</Text>
-              <Text style={{color:'rgba(255, 255, 255, 0.5)',marginRight:5,marginLeft:5,marginTop:5}}>likes</Text>
+              <Text style={{color:'#bbb',fontSize:20,fontWeight:'bold'}}>{ElleLike.length}</Text>
+              <Text style={{color:'#bbb',marginRight:5,marginLeft:5,marginTop:5}}>likes</Text>
           </View>
         </View>
-      <View style={{backgroundColor:'rgba(255, 255, 255, 0.5)',height:0.5,width:WIDTH,}}></View>
+      <View style={{backgroundColor:'#bbbb',height:0.5,width:WIDTH,}}></View>
 
 
 
   
-  <SafeAreaView style={{backgroundColor:'#000',flexDirection:'row',flex:1,with:WIDTH*0.9,}}>
+  <SafeAreaView style={{backgroundColor:'#fff',flexDirection:'row',flex:1,with:WIDTH*0.9,}}>
    
    <Image style={{height:30,width:30,borderRadius:50,margin:5,alignSelf:'center'}} source={require('../../assets/usericon.png')} />
       <TextInput
-       style={{height: 40,margin: 12,borderWidth: 1,padding: 10,width:'55%',alignSelf:'center',borderColor:'rgba(255, 255, 255, 0.5)',borderRadius:20,color:'#fff'}}
+       style={{height: 40,margin: 12,borderWidth: 1,padding: 10,width:'55%',alignSelf:'center',borderColor:'rgba(0, 0, 0, 0.5)',borderRadius:20,color:'#000'}}
        onChangeText={setCommentValue}
-       placeholderTextColor='rgba(255, 255, 255, 0.5)'
+       placeholderTextColor='rgba(0, 0, 0, 0.5)'
        value={commentValue}
        multiline
       // inputAccessoryViewID
        placeholder="entrer votre commentaire"
        keyboardType="twitter"
       />
-      <TouchableOpacity onPress={()=>ajouterComm()} style={{backgroundColor:'#00BFFF',height:30,alignSelf:'center',borderRadius:20,}}>
+      <TouchableOpacity onPress={()=>ajouterComm()} style={{backgroundColor:'rgb(249, 180, 45)',height:30,alignSelf:'center',borderRadius:20,}}>
         <Text style={{fontWeight:'900',color:'#fff',margin:5,}}>repondre</Text>
       </TouchableOpacity>
   </SafeAreaView>
 
   
-  <View style={{backgroundColor:'rgba(255, 255, 255, 0.5)',height:0.5,width:WIDTH,}}></View>
+  <View style={{backgroundColor:'#bbbb',height:0.5,width:WIDTH,}}></View>
  
 
 
@@ -398,7 +404,10 @@ export default function ElleVueFirst(props) {
 
       {
         ElleComments.reverse().map((list,key)=>
+        <React.Fragment key={key}>
+          <View style={{height:0.4,width:WIDTH,backgroundColor:'#bbbb',}}></View>
           <Comm email={list.email} key={key} com={list.com} nomUser={list.nomUser} />
+        </React.Fragment>
         )
       }
 
@@ -503,21 +512,21 @@ const Carte =({likes,imageTitre,titre,type,props,modalPhoto,setModalPhoto,commen
    }
 
   return(
-    <View style={{backgroundColor:'#000',paddingLeft:15,paddingRight:15,paddingTop:7,}}>
+    <View style={{backgroundColor:'#fff',paddingLeft:15,paddingRight:15,paddingTop:7,}}>
         <View style={{flexDirection:'row',justifyContent:'flex-start',marginTop:5}}>
           <Image  style={{height:50,width:50,borderRadius:40}} source={{uri:imageTitre}} />
           <View style={{flexDirection:'column'}}>
           <View style={{flexDirection:'row'}}>
-            <Text style={{fontSize:15,fontWeight:'900',color:'#fff',marginLeft:5}}>{titre}</Text>
-            <Image  style={{height:20,width:20,borderRadius:40}} source={require('../../assets/icons/twitter.png')} />
+            <Text style={{fontSize:15,fontWeight:'900',color:'#000',marginLeft:5}}>{titre}</Text>
+            <Image  style={{height:20,width:20,borderRadius:40}} source={require('../../assets/icons/twitorang.png')} />
           </View>
-          <Text style={{fontSize:10,fontWeight:'900',color:'rgba(255, 255, 255, 0.5)',marginLeft:5}}>{titre}@gmail.com</Text>
+          <Text style={{fontSize:10,fontWeight:'900',color:'#bbb',marginLeft:5}}>{titre}@gmail.com</Text>
           </View>
         </View>
-        <View style={{backgroundColor:'#000',marginLeft:50}}>
+        <View style={{backgroundColor:'#fff',marginLeft:50}}>
           
           <Pressable onPress={()=>AffichImage()} style={{width:300,borderRadius:40,marginBottom:5}}>
-            <Text style={{color:'#fff',}}> {textComment} </Text>
+            <Text style={{color:'#000',}}> {textComment} </Text>
             </Pressable>
             <View style={{height:300,width:300,borderRadius:40,}}>
            { 
@@ -539,25 +548,26 @@ const Carte =({likes,imageTitre,titre,type,props,modalPhoto,setModalPhoto,commen
           <View style={{flexDirection:'row',marginLeft:10,marginTop:5,marginBottom:10}}>
               { likes.includes(donneeUserEmail) ? 
               <TouchableOpacity style={{padding:5}} onPress={removeLike}>
-                <Ionicons name="heart" size={25} color={"#00BFFF"} />
+                <Ionicons name="heart" size={25} color={"rgb(249, 180, 45)"} />
               </TouchableOpacity> :
               <TouchableOpacity style={{padding:5}} onPress={ajouterLike}>
-              <Ionicons name="heart" size={25} color={"#fff"} />
+              <Ionicons name="heart" size={25}  color={"#000"} />
               </TouchableOpacity>
               }
 
-              <Text style={{color:'rgba(255, 255, 255, 0.5)',marginRight:5,marginLeft:5,marginTop:10}}>{likes.length}</Text>
+              <Text style={{color:'#000',marginRight:5,marginLeft:5,marginTop:10}}>{likes.length}</Text>
               
               <TouchableOpacity style={{padding:5}} onPress={()=>setModalElleCommentaire(!modalElleCommentaire)}>
-                <Ionicons name="chatbubbles" size={25} color={"#00BFFF"} />
+                <Ionicons name="chatbubbles" size={25} color={"rgb(249, 180, 45)"} />
               </TouchableOpacity>
             
-              <Text style={{color:'rgba(255, 255, 255, 0.5)',marginRight:5,marginLeft:5,marginTop:10}}>{comments.length}</Text>
-              <Text style={{color:'rgba(255, 255, 255, 0.5)',marginRight:5,marginLeft:5,marginTop:2}}></Text>
+              <Text style={{color:'#000',marginRight:5,marginLeft:5,marginTop:10}}>{comments.length}</Text>
+              <Text style={{color:'red',marginRight:5,marginLeft:5,marginTop:2}}></Text>
           </View>
           </Pressable>
         </View>
-        <View style={{backgroundColor:'rgba(255, 255, 255, 0.5)',height:0.5,width:WIDTH}}></View>
+        <View style={{height:0.4,width:WIDTH*2,backgroundColor:'#bbbb',}}></View>
+
       </View>
   )
 }
@@ -693,24 +703,24 @@ return (
 }
 const Comm=({com,nomUser,email})=>{
   return(
-      <View style={{backgroundColor:'#000'}}>
+      <View style={{backgroundColor:'#fff',padding:10}}>
           <View style={{flexDirection:'row',marginTop:5,justifyContent:'space-between'}}>
               <View style={{flexDirection:'row',marginTop:5,}}>
                   <Image style={{height:30,width:30,borderRadius:40}} source={require('../../assets/usericon.png')} />
                   <View style={{flexDirection:'column'}}>
         <View style={{flexDirection:'row'}}>
-          <Text style={{fontSize:10,fontWeight:'900',color:'#fff',marginLeft:5}}> {nomUser.length>10 ? nomUser.slice(0.9)+"...":nomUser} </Text>
+          <Text style={{fontSize:10,fontWeight:'900',color:'#000',marginLeft:5}}> {nomUser.length>10 ? nomUser.slice(0.9)+"...":nomUser} </Text>
         </View>
-        <Text style={{fontSize:10,fontWeight:'900',color:'rgba(255, 255, 255, 0.5)',marginLeft:5}}>{email}</Text>
+        <Text style={{fontSize:10,fontWeight:'900',color:'#000',marginLeft:5}}>{email}</Text>
         </View>
               </View>
-              <Text style={{color:'#000',marginRight:5,marginLeft:5,marginTop:2,fontSize:15,marginRight:10}}>.</Text>
+              <Text style={{color:'red',marginRight:5,marginLeft:5,marginTop:2,fontSize:15,marginRight:10}}>.</Text>
           </View>
 
-          <View style={{backgroundColor:'#000',marginLeft:50}}>
+          <View style={{backgroundColor:'#fff',marginLeft:50}}>
         
         <View style={{width:300,borderRadius:40,marginBottom:5}}>
-          <Text style={{color:'#fff',}}> {com} </Text>
+          <Text style={{color:'#000',}}> {com} </Text>
           </View>
           
          {/* 
@@ -824,8 +834,8 @@ const Annonces = ({setModalAnnonces,modalAnnonces,text,image,titre,lienVideo,set
    }}
    >
     <ScrollView style={{padding:17}}>
-    <TouchableOpacity onPress={()=>afficherAnnonce()} style={{margin:5,marginTop:25}}>
-        <Text style={{fontSize:25,fontWeight:'bold',padding:15}}>{'<'}</Text>
+    <TouchableOpacity onPress={()=>afficherAnnonce()} style={{marginTop:45,backgroundColor:'rgb(249, 180, 45)',height:25,width:40,borderRadius:30,marginBottom:10}}>
+        <Text style={{fontSize:20,fontWeight:'bold',textAlign:'center',color:'#fff',marginBottom:5}}>{'<'}</Text>
     </TouchableOpacity>
     <WebView
       style={{width:WIDTH*0.8,height:300,borderRadius:20,backgroundColor:'red',padding:10,alignSelf:'center'}}

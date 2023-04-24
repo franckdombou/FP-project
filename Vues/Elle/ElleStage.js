@@ -46,13 +46,13 @@ export default function ElleStage() {
      },[])
  
   return (
-    <SafeAreaView style={{backgroundColor:'#000',height:HEIGHT}}>
-      <ScrollView style={{marginTop:1,backgroundColor:'#000'}}>
+    <SafeAreaView style={{backgroundColor:'#fff',height:HEIGHT}}>
+      <ScrollView style={{marginTop:1,backgroundColor:'#fff'}}>
       {
         dataAnnonce.reverse().map((list,key)=>
                 <React.Fragment  key={key}>
                 <SousTitre setNomc={setNomc} setModalv={setModalv} setImg={setImg} setDatec={setDatec} setTextc={setTextc} setLienc={setLienc} image={list.image} text={list.text} lien={list.lien} date={list.date} nom={list.nom} />
-                <View style={{width:WIDTH,borderStartWidth:10,backgroundColor: 'black',height:1}}></View>
+                <View style={{width:WIDTH,borderStartWidth:10,backgroundColor: '#bbb',height:1}}></View>
                 </React.Fragment>
         )
       }
@@ -67,7 +67,7 @@ export default function ElleStage() {
    }}
    >
     <ScrollView style={{padding:17}}>
-    <TouchableOpacity onPress={()=>setModalv(false)} style={{margin:5,marginTop:25}}>
+    <TouchableOpacity onPress={()=>setModalv(false)} style={{margin:5,marginTop:25,backgroundColor:'rgb(249, 180, 45)'}}>
         <Text style={{fontSize:25,fontWeight:'bold',padding:15}}>{'<'}</Text>
     </TouchableOpacity>  
       <Text style={{fontSize:20,fontWeight:'900',textAlign:'center',marginTop:19}}> {nomc} </Text>
