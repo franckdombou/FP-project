@@ -8,6 +8,7 @@ import { UserContext } from '../../navigation/NavPrincipal'
 //import { doc, updateDoc, arrayUnion, arrayRemove,serverTimestamp,Timestamp,getDoc } from "firebase/firestore";
 import ElleVueFirst from './ElleVueFirst';
 import ElleStage from './ElleStage';
+import EllePost from './EllePost';
 
 const ElleVue2 = () => {
   const {vueElle,setVueElle}= useContext(UserContext)
@@ -19,8 +20,8 @@ const ElleVue2 = () => {
       ( vueElle=="ellevue3"?
       <ElleStage />
       :
-      ( vueElle=="ellevue4"?
-      <ElleVueFirst />
+      ( vueElle=="ellepost"?
+      <EllePost />
       :( vueElle=="ellevue4"?
       <View style={{backgroundColor:'green',height:500,width:1000}}></View>
       :( vueElle=="ellevue5"?

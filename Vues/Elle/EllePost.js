@@ -63,7 +63,7 @@ const statutData = [
 ]
 
 
-export default function ElleVueFirst(props) {
+export default function EllePost(props) {
 
   const {currentUserNewNav, setCurrentUserNewNav}=useContext(UserContextNewNav)
   useEffect(() =>{
@@ -234,6 +234,8 @@ export default function ElleVueFirst(props) {
       getDataStatut()
        subscribed()
      },[recharg])
+
+     const [tweetModal,setTweetModal]=useState(false)
 
   return (
     <SafeAreaView style={{}}>
@@ -421,6 +423,21 @@ export default function ElleVueFirst(props) {
   </Modal> 
 
     </ScrollView>
+    <TouchableOpacity onPress={()=>setTweetModal(true)} style={{height:50,width:50,backgroundColor:'#00BFFF',position:'absolute',right:30,bottom:30,borderRadius:50}}>
+        <Text style={{color:'#fff',textAlign:'center',fontWeight:'800',fontSize:35}}>+</Text>
+    </TouchableOpacity>
+    <Modal animationType='slide'
+    transparent={true}
+      visible={tweetModal}
+      style={{backgroundColor:'#000'}}
+      onRequestClose={() => {
+        setTweetModal(!tweetModal)
+   }}
+   >
+    <SafeAreaView style={{backgroundColor:'rgba(0,0,0,.9)',height:HEIGHT}}>
+    <TouchableOpacity onPress={()=>setTweetModal(false)} style={{height:50,with:50,backgroundColor:'red',borderRadius:50}}></TouchableOpacity>
+    </SafeAreaView>
+   </Modal>
     </SafeAreaView>
 
   )
@@ -519,7 +536,7 @@ const Carte =({likes,imageTitre,titre,type,props,modalPhoto,setModalPhoto,commen
           <Pressable onPress={()=>AffichImage()} style={{width:300,borderRadius:40,marginBottom:5}}>
             <Text style={{color:'#fff',}}> {textComment} </Text>
             </Pressable>
-            <View style={{height:300,width:300,borderRadius:40,}}>
+          {/*  <View style={{height:300,width:300,borderRadius:40,}}>
            { 
            type=="photo" ? 
           <Pressable onPress={()=>AffichImage()} style={{width:WIDTH,borderRadius:40,marginBottom:5}}>
@@ -533,7 +550,7 @@ const Carte =({likes,imageTitre,titre,type,props,modalPhoto,setModalPhoto,commen
            style={{width:"90%",height:370,borderRadius:20,}}
           source={{uri: imageTwitt}} /> : <></> )
           } 
-           </View>
+           </View>*/}
            <Pressable onPress={()=>AffichImage()} style={{width:300,borderRadius:40,marginBottom:5}}>
           
           <View style={{flexDirection:'row',marginLeft:10,marginTop:5,marginBottom:10}}>

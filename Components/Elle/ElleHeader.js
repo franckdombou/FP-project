@@ -11,7 +11,11 @@ const ElleHeader = () => {
       <ScrollView horizontal>
 
         <TouchableOpacity onPress={()=>setVueElle("ElleVueFirst")} style={vueElle=="ElleVueFirst" ? styles.onbutton : styles.offbutton }>
-          <Text style={vueElle=="ElleVueFirst" ? styles.onText : styles.offText } >Le Cosmopolitain</Text>
+          <Text style={vueElle=="ElleVueFirst" ? styles.onText : styles.offText } >Actu Polytech</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={()=>setVueElle("ellepost")} style={vueElle=="ellepost" ? styles.onbutton : styles.offbutton }>
+          <Text style={vueElle=="ellepost" ? styles.onText : styles.offText } >post</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={()=>setVueElle("ellevue3")} style={vueElle=="ellevue3" ? styles.onbutton : styles.offbutton }>
