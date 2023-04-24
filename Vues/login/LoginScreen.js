@@ -31,7 +31,7 @@ export default function LoginScreen({navigation}) {
             setAnime(true)
             navigation.replace('NavPrincipal');
         }).catch(error=>{
-            Alert.alert('adresse ou mot de pass incorrect')
+            Alert.alert('adresse ou mot de pas incorrect')
         })
     }
 
