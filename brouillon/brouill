@@ -1,0 +1,727 @@
+import { Dimensions, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View,Image, Touchable, Modal, Pressable, TouchableWithoutFeedback, TextInput, SafeAreaView, Button, Alert } from 'react-native'
+import React, { useContext, useEffect, useState } from 'react'
+import SousTitre from '../../Components/Elle/SousTitre'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import { UserContext } from '../../navigation/NavPrincipal'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import firebase from '../../config'
+import { Mydb } from '../../config'
+import { doc, updateDoc, arrayUnion, arrayRemove,serverTimestamp,Timestamp,getDoc } from "firebase/firestore";
+import { Video, AVPlaybackStatus } from 'expo-av';
+import WebView from 'react-native-webview'
+
+
+const tab =["1","2","3","4"]
+const WIDTH = Dimensions.get('window').width
+const HEIGHT = Dimensions.get('window').height
+
+const statutData = [
+  {
+    id:1,
+    img:img1,
+    text:'news is the first test 1',
+    name:'',
+    statutData:[
+      {id:1,
+      img:img2,
+      text:'this is the first test 1',
+    },
+    {
+      id:2,
+      img:img3,
+      text:'this is the first test 2',
+    },
+    {
+      id:3,
+      img:img4,
+      text:'this is the first test 3',
+    }
+    ]
+  },
+  {
+    id:2,
+    img:img3,
+    text:'this is the first test 21',
+    name:'',
+    statutData:[
+      {id:1,
+      img:img4,
+      text:'this is the first test 21',
+    },
+    {
+      id:2,
+      img:img2,
+      text:'this is the first test 21',
+    },
+    {
+      id:3,
+      img:img1,
+      text:'this is the first test 21',
+    }
+    ]
+  }
+]
+import img1 from '../../assets/elle/adele.jpg'
+import img2 from '../../assets/nike/nike3.jpg'
+import img3 from '../../assets/nike/nike8.jpg'
+import img4 from '../../assets/nike/nike7.jpg'
+
+
+default function ElleVueFirst(props) {
+
+  const coeur = ({focused, color, size}) => {
+    let iconName;
+    let rn = route.name;
+    iconName = focused ? 'chatbubbles' : 'chatbubbles-outline'
+    
+    return <Ionicons name={iconName} size={size} color={color} />
+}
+  const [modalPhoto,setModalPhoto] = useState(false)
+  const [modalAnnonces,setModalAnnonces] = useState(false)
+  const {ElleNomTitre,setElleNomTitre,ElleImageTitre,setElleImageTitre,ElleVideoTwitt,setElleVideoTwitt,ElleTwitt,setElleTwitt,ElleEmail,setElleEmail,modalElleCommentaire,setModalElleCommentaire,ElleComments,setElleComments,ElleImageTwitt,setElleImageTwitt,ElleTextComments,setElleTextComments,} = useContext(UserContext)
+  const [commentValue,setCommentValue]= useState("")
+
+  const vur=()=>{
+    return(
+      <VueElle2 />
+    )
+  }
+
+  let  ref = 0 
+    
+  const [values, SetValues] =React.useState("")
+ // const [datUser1, setDatUser1] =React.useState("")
+  ref = firebase.firestore().collection("2023TWITTER")
+
+  // console.log(ref)
+  const [modalStatut,setModalStatut]= useState(false)
+   
+  const [data,setData]=React.useState([])
+  const [loader,setLoader] =React.useState(true)
+ 
+  function getData(){
+   ref.onSnapshot((querySnapshot) => { 
+     const items = []
+     querySnapshot.forEach((doc) => {
+       items.push(doc.data())
+     })
+     setData(items)
+   //  SetValues(items)
+     setLoader(false)
+
+     
+   })
+  } 
+  function subscribed (){ firebase.firestore()
+    .collection('2023TWITT')
+    .doc(currentUserNewNav.email)
+    .onSnapshot(doc => {
+     const items = []
+     items.push(doc.data())
+    
+   //  setDonneeCurrentUser(doc.data())
+   //  console.log('DonneeCurrentUser headerNav',doc.data())
+   //  console.log('DonneeCurrentUser12345 email',currentUserNewNav.email)
+  
+   //  setCurrentSolde(doc.data().solde)
+   //  setCurrentPanier(doc.data().userPanier)
+   //  setprixtotPan(doc.data().totalPanier)
+    // setCurrentUserRecent(doc.data())
+    // setMes(doc.data().name)
+    })}
+  
+  React.useEffect(() =>{
+   getData()
+    
+  },[])
+
+  function ajouterComm(){
+    // debut ajouter tableau
+    const washingtonRef = firebase.firestore().collection("2023TWITTER").doc(ElleTwitt)
+    setCommentValue('')
+    washingtonRef.update({
+      comments: arrayUnion({"nomUser": 'Dombou' ,"com": commentValue, "email":'dombouEbeny@gmail.com'})
+    });
+   // setModalComm(!modalComm)
+    Alert.alert('Commentaire envoyé!!! ')
+//    console.log(washingtonRef) 
+   }
+     //la webview
+     const webviewRef = React.useRef(null);
+     function webViewgoback() {
+       if (webviewRef.current) webviewRef.current.goBack();
+     }
+
+
+  return (
+    <View style={{backgroundColor:'#000',}}>
+      <ScrollView horizontal style={{height:107,width:WIDTH,backgroundColor:'#000',padding:5,}}>
+  {
+    statutData.map((list,index)=>
+    <React.Fragment key={index}>
+    <Pressable style={{marginBottom:15}} onPress={()=>setModalStatut(true)}>
+      <Image source={list.img} style={{height:65,width:65,backgroundColor:'#fff', borderRadius:50,margin:5,marginBottom:2}} />
+      <Text style={{color:'#fff',textAlign:'center',fontSize:10,fontWeight:'bold'}}>{list.text.length>5? list.text.slice(0,5)+'...': list.text}</Text>
+      </Pressable>
+      {modalStatut && <StatutWrapper statutdata={list.statutData} profile={list} modalStatut={modalStatut} onClose={(()=>setModalStatut(false)) } />}
+      </React.Fragment>
+    )
+  }
+      </ScrollView>
+
+      <View style={{height:0.4,width:WIDTH,backgroundColor:'#bbbb',}}></View>
+
+    <ScrollView style={{marginBottom:215}}>
+
+      {
+        data.map((list,key)=>
+        key!=2  ?
+        <Carte key={key} imageTitre={list.imageTitre} titre={list.nomTitre} type={list.type} elletwitt={list.nomDoc} comments={list.comments} imageTwitt={list.imagetwitt} textComment={list.textComment} setModalPhoto={setModalPhoto} modalPhoto={modalPhoto} props={props} />
+        :
+        <>
+        <Text style={{color:'#fff',fontWeight:'800',marginTop:10,marginLeft:25,fontSize:19}}>annonces</Text>
+        <ScrollView horizontal style={{}}>
+          {
+            tab.map((e,ind)=>
+            <React.Fragment key={ind}>
+              <TouchableOpacity onPress={()=>setModalAnnonces(true)}>
+            <Image source={require('../../assets/iphone14gif.gif')} style={{height:250,width:200,backgroundColor:'red',borderRadius:20,margin:7}} />
+            <Text style={{color:'#fff',marginBottom:10,textAlign:'center'}}> reduction de 50%</Text>
+            </TouchableOpacity>
+            {modalAnnonces && <Annonces modalAnnonces={modalAnnonces} setModalAnnonces={setModalAnnonces} />}
+            </React.Fragment>
+            )
+          }
+          
+        </ScrollView>
+        <View style={{height:0.5,width:WIDTH,backgroundColor:'#bbbb'}}></View>
+        
+        </>
+        )
+      }
+    {/*<Modal animationType='slide'
+     transparent={true}
+      visible={modalPhoto}
+      onRequestClose={() => {
+      setModalPhoto(!modalPhoto)
+   }}
+   >
+    <Pressable onPress={()=>setModalPhoto(!modalPhoto)} style={{alignSelf:'center',marginTop:100}}>
+      <Image style={{width:WIDTH,alignSelf:'center',alignItems:'center',}} source={{uri:ElleImageTwitt}} />
+    </Pressable>
+  </Modal>*/}
+
+
+   {/**modal commentaire */}
+
+   <Modal animationType='slide'
+    // transparent={true}
+      visible={modalElleCommentaire}
+      onRequestClose={() => {
+      setModalElleCommentaire(!modalElleCommentaire)
+   }}
+   >
+    <SafeAreaView>
+
+   <KeyboardAwareScrollView> 
+    
+  <ScrollView style={{backgroundColor:'#000'}}>
+
+      <TouchableOpacity style={{marginTop:10,marginLeft:5,marginBottom:7}} onPress={()=>setModalElleCommentaire(!modalElleCommentaire)}>
+       <Text style={{fontSize:30,fontWeight:'900',color:'rgba(255, 255, 255, 0.5)',marginLeft:5}}>{"<"}</Text>
+      </TouchableOpacity>
+
+    <View style={{flexDirection:'row',marginTop:5}}>
+      <Image style={{height:50,width:50,borderRadius:40}} source={{uri:ElleImageTitre}} />
+      <View style={{flexDirection:'column'}}>
+        <View style={{flexDirection:'row'}}>
+          <Text style={{fontSize:15,fontWeight:'900',color:'#fff',marginLeft:5}}>{ElleNomTitre}</Text>
+          <Image style={{height:20,width:20,borderRadius:40}} source={require('../../assets/icons/twitter.png')} />
+        </View>
+        <Text style={{fontSize:15,fontWeight:'900',color:'rgba(255, 255, 255, 0.5)',marginLeft:5}}>@PolytechniqueYaounde</Text>
+        </View>
+    </View>
+
+      <View style={{backgroundColor:'#000'}}>
+        
+          <View style={{width:WIDTH,borderRadius:40,margin:5}}>
+              <Text style={{color:'#fff',fontSize:20,margin:5}}> {ElleTextComments} </Text>
+          </View>
+         { ElleVideoTwitt=="photo" ?
+          <View>
+          <Image resizeMode='contain' style={{height:300,width:WIDTH,borderRadius:5}} source={{uri:ElleImageTwitt}} />
+          </View>
+        :
+        <View style={{width:300,height:370,borderRadius:20,backgroundColor:'red',alignSelf:'center'}}>
+       { /*
+        <Video  source={{uri:ElleImageTwitt}} style={{width:300,height:370,borderRadius:20,}} useNativeControls resizeMode='cover' />      
+        */}
+        <WebView
+           startInLoadingState={true}
+           ref={webviewRef}
+           style={{width:300,height:370,borderRadius:20,}}
+         source={{uri: ElleImageTwitt}} />
+ 
+        </View>
+        }
+       
+        
+        <View style={{flexDirection:'row',marginLeft:10,marginTop:5,marginBottom:10}}>
+            
+          <View style={{flexDirection:'row'}}>
+              <Text style={{color:'#fff',fontSize:20,fontWeight:'bold'}}>{ElleComments.length}</Text>
+              <Text style={{color:'rgba(255, 255, 255, 0.5)',marginRight:5,marginLeft:5,marginTop:5}}>Commentaires</Text>
+          </View>
+            
+          <View style={{flexDirection:'row',marginLeft:10}}>
+              <Text style={{color:'#fff',fontSize:20,fontWeight:'bold'}}></Text>
+              <Text style={{color:'rgba(255, 255, 255, 0.5)',marginRight:5,marginLeft:5,marginTop:5}}></Text>
+          </View>
+        </View>
+      <View style={{backgroundColor:'rgba(255, 255, 255, 0.5)',height:0.5,width:WIDTH,}}></View>
+
+
+
+  
+  <SafeAreaView style={{backgroundColor:'#000',flexDirection:'row',flex:1}}>
+   
+   <Image style={{height:40,width:40,borderRadius:50,margin:5,alignSelf:'center'}} source={require('../../assets/elle/adele.jpg')} />
+      <TextInput
+       style={{height: 40,margin: 12,borderWidth: 1,padding: 10,width:250,alignSelf:'center',borderColor:'rgba(255, 255, 255, 0.5)',borderRadius:20,color:'#fff'}}
+       onChangeText={setCommentValue}
+       placeholderTextColor='rgba(255, 255, 255, 0.5)'
+       value={commentValue}
+       multiline
+      // inputAccessoryViewID
+       placeholder="entrer votre commentaire"
+       keyboardType="twitter"
+      />
+      <TouchableOpacity onPress={()=>ajouterComm()} style={{backgroundColor:'blue',height:30,alignSelf:'center',borderRadius:20}}>
+        <Text style={{fontWeight:'900',color:'#fff',margin:5,}}>repondre</Text>
+      </TouchableOpacity>
+  </SafeAreaView>
+
+  
+  <View style={{backgroundColor:'rgba(255, 255, 255, 0.5)',height:0.5,width:WIDTH,}}></View>
+ 
+
+
+      </View>
+      
+
+      {
+        ElleComments.map((list,key)=>
+          <Comm email={list.email} key={key} com={list.com} nomUser={list.nomUser} />
+        )
+      }
+
+  </ScrollView>
+
+  
+
+
+ 
+
+ 
+ 
+  </KeyboardAwareScrollView>
+  </SafeAreaView>
+</Modal>
+
+    </ScrollView>
+    </View>
+
+  )
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  inner: {
+    padding: 24,
+    flex: 1,
+    justifyContent: 'space-around',
+  },
+  header: {
+    fontSize: 36,
+    marginBottom: 48,
+  },
+  textInput: {
+    height: 40,
+    borderColor: '#000000',
+    borderBottomWidth: 1,
+    marginBottom: 36,
+  },
+  btnContainer: {
+    backgroundColor: 'white',
+    marginTop: 12,
+  },
+})
+
+const Carte =({imageTitre,titre,type,props,modalPhoto,setModalPhoto,comments,imageTwitt,textComment,elletwitt})=>{
+  const {ElleNomTitre,setElleNomTitre,ElleImageTitre,setElleImageTitre,ElleVideoTwitt,setElleVideoTwitt,ElleTwitt,setElleTwitt,ElleEmail,setElleEmail,modalElleCommentaire,setModalElleCommentaire,ElleComments,setElleComments,ElleImageTwitt,setElleImageTwitt,ElleTextComments,setElleTextComments,} = useContext(UserContext)
+
+  const voirCommentaire = () => {
+    props.navigation.navigate('VueElle2',{})    
+  }
+  function AffichImage(){
+   // setElleEmail(email)
+   setElleNomTitre(titre)
+   setElleImageTitre(imageTitre)
+   setElleVideoTwitt(type)
+   setElleTwitt(elletwitt)
+    setElleTextComments(textComment)
+    setElleComments(comments)
+    setElleImageTwitt(imageTwitt)
+    setModalElleCommentaire(!modalElleCommentaire)
+  }
+   //la webview
+   const webviewRef = React.useRef(null);
+   function webViewgoback() {
+     if (webviewRef.current) webviewRef.current.goBack();
+   }
+
+  return(
+    <View style={{backgroundColor:'#000',paddingLeft:15,paddingRight:15,paddingTop:7,}}>
+        <View style={{flexDirection:'row',justifyContent:'flex-start',marginTop:5}}>
+          <Image  style={{height:50,width:50,borderRadius:40}} source={{uri:imageTitre}} />
+          <View style={{flexDirection:'column'}}>
+          <View style={{flexDirection:'row'}}>
+            <Text style={{fontSize:15,fontWeight:'900',color:'#fff',marginLeft:5}}>{titre}</Text>
+            <Image  style={{height:20,width:20,borderRadius:40}} source={require('../../assets/icons/twitter.png')} />
+          </View>
+          <Text style={{fontSize:10,fontWeight:'900',color:'rgba(255, 255, 255, 0.5)',marginLeft:5}}>{titre}@gmail.com</Text>
+          </View>
+        </View>
+        <View style={{backgroundColor:'#000',marginLeft:50}}>
+          
+          <Pressable onPress={()=>AffichImage()} style={{width:300,borderRadius:40,marginBottom:5}}>
+            <Text style={{color:'#fff',}}> {textComment} </Text>
+            </Pressable>
+            <View style={{height:300,width:300,borderRadius:40,}}>
+           { 
+           type=="photo" ? 
+          <Pressable onPress={()=>AffichImage()} style={{width:300,borderRadius:40,marginBottom:5}}>
+            <Image  resizeMode='contain' style={{height:370,width:300,borderRadius:40}} source={{uri:imageTwitt}} />
+          </Pressable>
+            :  
+          <WebView
+           startInLoadingState={true}
+           ref={webviewRef}
+           style={{width:300,height:370,borderRadius:20,}}
+          source={{uri: imageTwitt}} />
+          } 
+           </View>
+           <Pressable onPress={()=>AffichImage()} style={{width:300,borderRadius:40,marginBottom:5}}>
+          
+          <View style={{flexDirection:'row',marginLeft:10,marginTop:5,marginBottom:10}}>
+              {/* true ? 
+              <TouchableOpacity>
+                <Ionicons name="heart" size={21} color={"#fff"} />
+              </TouchableOpacity> :
+              <TouchableOpacity>
+              <Ionicons name="heart" size={21} color={"#00BFFF"} />
+            </TouchableOpacity>
+              
+
+              <Text style={{color:'rgba(255, 255, 255, 0.5)',marginRight:5,marginLeft:5,marginTop:2}}>15</Text>
+              */}
+              <TouchableOpacity onPress={()=>setModalElleCommentaire(!modalElleCommentaire)}>
+                <Ionicons name="chatbubbles" size={21} color={"#00BFFF"} />
+              </TouchableOpacity>
+            
+              <Text style={{color:'rgba(255, 255, 255, 0.5)',marginRight:5,marginLeft:5,marginTop:2}}>{comments.length}</Text>
+              <Text style={{color:'rgba(255, 255, 255, 0.5)',marginRight:5,marginLeft:5,marginTop:2}}>commentaires</Text>
+          </View>
+          </Pressable>
+        </View>
+        <View style={{backgroundColor:'rgba(255, 255, 255, 0.5)',height:0.5,width:WIDTH}}></View>
+      </View>
+  )
+}
+
+const CarteComm =({props,modalPhoto,setModalPhoto})=>{
+
+  const voirCommentaire = () => {
+    props.navigation.navigate('VueElle2',{})    
+  }
+ 
+  return(
+    <View style={{backgroundColor:'#000',}}>
+        <View style={{flexDirection:'row',justifyContent:'flex-start',marginTop:5}}>
+          <Image style={{height:50,width:50,borderRadius:40}} source={require('../../assets/icons/logoENSPY.png')} />
+          <View style={{flexDirection:'column'}}>
+          <View style={{flexDirection:'row'}}>
+            <Text style={{fontSize:15,fontWeight:'900',color:'#fff',marginLeft:5}}>Le Cosmopolitain</Text>
+            <Image style={{height:20,width:20,borderRadius:40}} source={require('../../assets/icons/twitter.png')} />
+          </View>
+          <Text style={{fontSize:15,fontWeight:'900',color:'rgba(255, 255, 255, 0.5)',marginLeft:5}}>@PolytechniqueYaounde</Text>
+          </View>
+        </View>
+        <View style={{backgroundColor:'#000',marginLeft:50}}>
+          
+          <Pressable onPress={()=>voirCommentaire()} style={{width:300,borderRadius:40,marginBottom:5}}>
+            <Text style={{color:'#fff',}}>
+            En Afrique, la compréhension des normes d'ingénierie et la qualité des diplômés restent discutables ; ce qui freine le développement de ce secteur. C’est ce qu’indique un récent rapport de l’UNESCO dans lequel l’organisation appelle  à revoir le système d’enseignement supérieur en Afrique.
+            </Text>
+            </Pressable>
+            
+          <View style={{flexDirection:'row',marginLeft:10,marginTop:5,marginBottom:10}}>
+              <TouchableOpacity>
+                <Ionicons name="heart" size={20} color={"#fff"} />
+              </TouchableOpacity>
+
+              <Text style={{color:'rgba(255, 255, 255, 0.5)',marginRight:5,marginLeft:5,marginTop:2}}>15</Text>
+              
+              <TouchableOpacity onPress={()=>voirCommentaire()}>
+                <Ionicons name="chatbubbles" size={20} color={"#fff"} />
+              </TouchableOpacity>
+
+              <Text style={{color:'rgba(255, 255, 255, 0.5)',marginRight:5,marginLeft:5,marginTop:2}}>15</Text>
+          </View>
+        </View>
+        <View style={{backgroundColor:'rgba(255, 255, 255, 0.5)',height:0.5,width:WIDTH}}></View>
+      </View>
+  )
+}
+
+
+const VueElle2 = (props) => {
+
+  const [comment,setComment]= useState("")
+
+  const Back = () => {
+      props.navigation.goBack()    
+    }
+
+return (
+  <Modal animationType='slide'
+     transparent={true}
+      visible={modalCommentaire}
+      onRequestClose={() => {
+      setModalCommentaire(!modalCommentaire)
+   }}
+   >
+ 
+  <ScrollView style={{backgroundColor:'#000'}}>
+      <TouchableWithoutFeedback onPress={Back} >
+       <Text style={{fontSize:30,fontWeight:'900',color:'rgba(255, 255, 255, 0.5)',marginLeft:5}}>{"<"}</Text>
+      </TouchableWithoutFeedback>
+
+    <View style={{flexDirection:'row',marginTop:5}}>
+      <Image style={{height:50,width:50,borderRadius:40}} source={require('../../assets/icons/logoENSPY.png')} />
+      <View style={{flexDirection:'column'}}>
+        <View style={{flexDirection:'row'}}>
+          <Text style={{fontSize:15,fontWeight:'900',color:'#fff',marginLeft:5}}>Le Cosmopolitain</Text>
+          <Image style={{height:20,width:20,borderRadius:40}} source={require('../../assets/icons/twitter.png')} />
+        </View>
+        <Text style={{fontSize:15,fontWeight:'900',color:'rgba(255, 255, 255, 0.5)',marginLeft:5}}>@PolytechniqueYaounde</Text>
+        </View>
+    </View>
+
+      <View style={{backgroundColor:'#000'}}>
+        
+          <View style={{width:WIDTH,borderRadius:40,margin:5}}>
+            <Text style={{color:'#fff',fontSize:20,margin:5}}>
+            En Afrique, la compréhension des normes d'ingénierie et la qualité des diplômés restent discutables ; ce qui freine le développement de ce secteur. C’est ce qu’indique un récent rapport de l’UNESCO dans lequel l’organisation appelle  à revoir le système d’enseignement supérieur en Afrique.
+            Selon le rapport « Engineering for sustainable development: delivering on the Sustainable Development Goals » de l’UNESCO publié début mars 2021, l'Afrique continue d'avoir le plus faible nombre de professionnels par habitant de toutes les régions, dans le domaine de l'ingénierie. Plus encore, les ingénieurs qui existent sur le continent n’ont pas les compétences requises.
+            </Text>
+          </View>
+          
+          <Image style={{height:370,width:WIDTH,borderRadius:40}} source={require('../../assets/titre/choose.jpg')} />
+        <View style={{flexDirection:'row',marginLeft:10,marginTop:5,marginBottom:10}}>
+            
+          <View style={{flexDirection:'row'}}>
+              <Text style={{color:'#fff',fontSize:20,fontWeight:'bold'}}>250</Text>
+              <Text style={{color:'rgba(255, 255, 255, 0.5)',marginRight:5,marginLeft:5,marginTop:5}}>j'aime</Text>
+          </View>
+            
+          <View style={{flexDirection:'row',marginLeft:10}}>
+              <Text style={{color:'#fff',fontSize:20,fontWeight:'bold'}}>520</Text>
+              <Text style={{color:'rgba(255, 255, 255, 0.5)',marginRight:5,marginLeft:5,marginTop:5}}>Commentaires</Text>
+          </View>
+        </View>
+      <View style={{backgroundColor:'rgba(255, 255, 255, 0.5)',height:0.5,width:WIDTH,}}></View>
+      </View>
+      <Comm />
+      <Comm />
+      <Comm />
+      <Comm />
+      <Comm />
+     
+  </ScrollView>
+   <View style={{backgroundColor:'#000',flexDirection:'row',}}>
+   <Image style={{height:40,width:40,borderRadius:50,margin:5,alignSelf:'center'}} source={require('../../assets/elle/adele.jpg')} />
+      <TextInput
+       style={{height: 40,margin: 12,borderWidth: 1,padding: 10,width:250,alignSelf:'center',borderColor:'rgba(255, 255, 255, 0.5)',borderRadius:20,color:'#fff'}}
+       onChangeText={setComment}
+       placeholderTextColor='rgba(255, 255, 255, 0.5)'
+       value={comment}
+       multiline
+      // onScroll
+      // scrollEnabled 
+      // maxLength={3}
+       //enablesReturnKeyAutomatically={true}
+       placeholder="entrer votre commentaire"
+       keyboardType="twitter"
+      />
+  </View>
+</Modal>
+)
+}
+const Comm=({com,nomUser,email})=>{
+  return(
+      <View style={{backgroundColor:'#000'}}>
+          <View style={{flexDirection:'row',marginTop:5,justifyContent:'space-between'}}>
+              <View style={{flexDirection:'row',marginTop:5,}}>
+                  <Image style={{height:50,width:50,borderRadius:40}} source={require('../../assets/icons/logoENSPY.png')} />
+                  <View style={{flexDirection:'column'}}>
+        <View style={{flexDirection:'row'}}>
+          <Text style={{fontSize:15,fontWeight:'900',color:'#fff',marginLeft:5}}> {nomUser} </Text>
+        </View>
+        <Text style={{fontSize:15,fontWeight:'900',color:'rgba(255, 255, 255, 0.5)',marginLeft:5}}>{email}</Text>
+        </View>
+              </View>
+              <Text style={{color:'rgba(255, 255, 255, 0.5)',marginRight:5,marginLeft:5,marginTop:2,fontSize:15,marginRight:10}}>...</Text>
+          </View>
+
+          <View style={{backgroundColor:'#000',marginLeft:50}}>
+        
+        <View style={{width:300,borderRadius:40,marginBottom:5}}>
+          <Text style={{color:'#fff',}}> {com} </Text>
+          </View>
+          
+         {/* 
+         <Image style={{height:370,width:300,borderRadius:40}} source={require('../../assets/titre/choose.jpg')} />
+         */}
+        {/*<View style={{width:300,flexDirection:'row',marginLeft:10,marginTop:5,marginBottom:10,justifyContent:'space-between'}}>
+            <TouchableOpacity style={{flexDirection:'row'}}>
+              <Ionicons name="heart" size={20} color={"#fff"} />
+              <Text style={{color:'rgba(255, 255, 255, 0.5)',marginRight:5,marginLeft:5,marginTop:2}}>15</Text>
+            </TouchableOpacity>
+
+            
+            <TouchableOpacity style={{flexDirection:'row'}}>
+              <Ionicons name="chatbubbles" size={20} color={"#fff"} />
+            <Text style={{color:'rgba(255, 255, 255, 0.5)',marginRight:5,marginLeft:5,marginTop:2}}>15</Text>
+            </TouchableOpacity>
+
+        </View>*/}
+      </View>
+      <View style={{backgroundColor:'rgba(255, 255, 255, 0.5)',height:0.5,width:WIDTH}}></View>
+
+      </View>
+  )
+}
+const StatutWrapper = ({modalStatut,onClose,statutdata})=>{
+  const [current,setCurrent]=useState({data:statutdata[0],index:0})
+  useEffect(()=>{
+    const timer = setTimeout(()=>{
+      if(current.index===statutdata.length-1){return onClose(true)}
+      setCurrent({
+        ...current,
+        index:current.index-1,
+        data:statutdata[current.index-1]
+      })
+      console.log("time out")
+    },1000)
+    return clearTimeout(timer)
+  },[current])
+  return(
+    <Modal animationType='fade' visible={modalStatut}>
+      <SafeAreaView style={{height:HEIGHT,width:WIDTH,backgroundColor:'#222',}}>
+      <View style={{flexDirection:'row',width:'100%',marginTop:11,}}>
+     
+      {
+        statutdata.map((data,index)=>
+        
+          
+        <View key={index} style={{flex:1,backgroundColor:'#bbbb',height:2,marginHorizontal:2,width:10}}></View>
+
+        
+        )
+      }
+        
+        </View>
+
+        <View style={{backgroundColor:'#222',flex:1}}>
+          <Image 
+          source={current.data.img}
+          resizeMode='contain'
+          style={{width:'100%',height:HEIGHT/1.2,maxHeight:HEIGHT/1.2}}
+
+           />
+        </View>
+
+        <TouchableOpacity onPress={()=>{
+          if(current.index===0){return onClose(true)}
+          setCurrent({
+            ...current,
+            index:current.index-1,
+            data:statutdata[current.index-1]
+          })
+        }} style={{position:'absolute',width:WIDTH/2,height:HEIGHT*0.9,bottom:0,}}>
+
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={()=>{
+          if (current.index===statutdata.length-1){return onClose(true)}
+          setCurrent({
+            ...current,
+            index:current.index+1,
+            data:statutdata[current.index+1]
+          })
+        }} style={{position:'absolute',width:WIDTH/2,height:HEIGHT*0.9,bottom:0,right:0,}}>
+
+        </TouchableOpacity>
+      </SafeAreaView>
+    </Modal>
+  )
+}
+
+const Annonces = ({setModalAnnonces,modalAnnonces})=>{
+   //la webview
+   const webviewRef = React.useRef(null);
+   function webViewgoback() {
+     if (webviewRef.current) webviewRef.current.goBack();
+   }
+  return(
+    <Modal animationType='slide'
+    // transparent={true}
+      visible={modalAnnonces}
+      style={{backgroundColor:'#000'}}
+      onRequestClose={() => {
+        setModalAnnonces(!modalAnnonces)
+   }}
+   >
+    <ScrollView style={{padding:17}}>
+    <TouchableOpacity onPress={()=>setModalAnnonces(false)} style={{margin:5,marginTop:25}}>
+        <Text style={{fontSize:25,fontWeight:'bold',padding:15}}>{'<'}</Text>
+    </TouchableOpacity>
+    <WebView
+      style={{width:350,height:370,borderRadius:20,backgroundColor:'red',padding:10,alignSelf:'center'}}
+      startInLoadingState={true}
+      ref={webviewRef}
+      source={{uri:"https://drive.google.com/file/d/1CfmjW4ra1sMZ_j9EncS68Rtn8HcUXaDT/view?usp=share_link" }} />
+      
+      
+      <Text style={{padding:25}}>
+      À une distance dans l'espace considérée comme grande : Il est loin derrière.
+Contraire :
+
+près
+
+2. À un point de l'espace relativement éloigné d'un autre : Paris est loin de New York. En avion ce n'est pas loin.
+3. À une distance dans le temps (passé ou futur) considérée comme grande : C'est loin tout cela.
+4. À une grande distance dans le temps : Nous sommes encore loin de la fin des travaux.
+5. Marque la distance, l'écart, la différence, considérés d'un point de vue subjectif : Vous êtes trop loin du sujet.
+6. Indique qu'un état n'est pas sur le point d'être atteint : J'étais loin de m'attendre à une pareille nouvelle.
+      </Text>
+      <Image source={require('../../assets/iphone14gif.gif')} style={{height:250,width:350,backgroundColor:'#000',margin:10,alignSelf:'center',borderRadius:20,marginBottom:70}} />
+
+     
+    </ScrollView>
+   </Modal>
+  )
+}
