@@ -226,8 +226,8 @@ let str = 0
       {
         attendre ? 
         <Text>WAIT</Text> :
-    <SafeAreaView style={{flexDirection:'row',height:30,backgroundColor:'#000',alignContent:'center',alignItems:'center'}}>
-    <ScrollView horizontal style={{height:20,width:WIDTH,alignSelf:'center'}}>
+    <SafeAreaView style={{flexDirection:'row',height:40,backgroundColor:'#000',alignContent:'center',alignItems:'center',width:WIDTH}}>
+    <ScrollView horizontal style={{height:30,width:WIDTH,alignSelf:'center'}}>
     
       <TouchableOpacity onPress={()=>setVues("vue5")} style={vue=="vue5" ? styles.onbutton : styles.offbutton }>
         <Text style={vue=="vue5" ? styles.onText : styles.offText }>FASTFOOD</Text>
@@ -347,11 +347,11 @@ let str = 0
     </ScrollView>
 
 
-    <TouchableOpacity onPress={()=>setModalPanier(true)} style={{backgroundColor:'#fff',height:50,width:50,borderRadius:30,alignContent:'center',padding:4,marginTop:102}}>
+    <TouchableOpacity onPress={()=>setModalPanier(true)} style={{backgroundColor:'rgba(255,255,255,.9)',height:50,width:50,borderRadius:30,alignContent:'center',position:'absolute',right:25,top:50}}>
     {/*<Image style={{height:30,width:30,alignSelf:'center',marginTop:5,marginBottom:2}} source={require('../../assets/icons/panier.png')} />*/}
-    <Ionicons  name="cart" size="40" color="rgb(249, 180, 45)" />
+    <Ionicons style={{alignSelf:'center',padding:5,marginTop:3}} name="cart" size="30" color="rgb(249, 180, 45)" />
     {currentPanier.length > 0 ?
-      <View style={{backgroundColor:'red',height:13,width:13,borderRadius:50,position:'absolute',right:0}}>
+      <View style={{backgroundColor:'red',height:13,width:13,borderRadius:50,position:'absolute',right:10}}>
         <Text style={{color:'#fff',fontSize:10,textAlign:'center',fontWeight:'bold'}}>{currentPanier.length}</Text>
       </View>
       :<View></View>
@@ -690,7 +690,7 @@ let str = 0
 
 const styles = StyleSheet.create({
     onbutton:{
-        backgroundColor:'#fff',
+        backgroundColor:'rgb(249, 180, 45)',
         height:20,
        // marginLeft:10,
        // marginRight:10,
@@ -709,13 +709,13 @@ const styles = StyleSheet.create({
     },
     onText:{
         color:'#000',
-        fontSize:10,
+        fontSize:15,
         fontWeight:'bold',
         textAlign:'center'
     },
     offText:{
         color:'#fff',
-        fontSize:10,
+        fontSize:15,
         fontWeight:'bold',
     },
 })
