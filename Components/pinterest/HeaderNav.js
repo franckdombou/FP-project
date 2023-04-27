@@ -347,11 +347,11 @@ let str = 0
     </ScrollView>
 
 
-    <TouchableOpacity onPress={()=>setModalPanier(true)} style={{backgroundColor:'rgba(255,255,255,.9)',height:50,width:50,borderRadius:30,alignContent:'center',position:'absolute',right:25,top:50}}>
+    <TouchableOpacity onPress={()=>setModalPanier(true)} style={{backgroundColor:'rgb(249, 180, 45)',height:50,width:50,borderRadius:30,alignContent:'center',position:'absolute',right:25,top:50}}>
     {/*<Image style={{height:30,width:30,alignSelf:'center',marginTop:5,marginBottom:2}} source={require('../../assets/icons/panier.png')} />*/}
-    <Ionicons style={{alignSelf:'center',padding:5,marginTop:3}} name="cart" size="30" color="rgb(249, 180, 45)" />
+    <Ionicons style={{alignSelf:'center',padding:5,marginTop:3}} name="cart" size={30} color="white" />
     {currentPanier.length > 0 ?
-      <View style={{backgroundColor:'red',height:13,width:13,borderRadius:50,position:'absolute',right:10}}>
+      <View style={{backgroundColor:'red',height:13,width:13,borderRadius:50,position:'absolute',right:4}}>
         <Text style={{color:'#fff',fontSize:10,textAlign:'center',fontWeight:'bold'}}>{currentPanier.length}</Text>
       </View>
       :<View></View>
@@ -697,7 +697,9 @@ const styles = StyleSheet.create({
         borderRadius:10,
         paddingLeft:10,
         paddingRight:10,
-        paddingTop:3
+        paddingTop:1,
+        alignItems:'center',
+        alignContent:'center'
     //    width:80
     },
     offbutton:{
@@ -711,7 +713,9 @@ const styles = StyleSheet.create({
         color:'#000',
         fontSize:15,
         fontWeight:'bold',
-        textAlign:'center'
+        textAlign:'center',
+        marginBottom:0.005,
+        paddingBottom:5
     },
     offText:{
         color:'#fff',

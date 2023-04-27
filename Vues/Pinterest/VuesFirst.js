@@ -169,15 +169,14 @@ const VuesFirst = (props) => {
   const [modalStatut,setModalStatut]= useState(false)
 
   return (
-    <SafeAreaView style={{backgroundColor:'#000'}}>
+    <SafeAreaView style={{backgroundColor:'rgba(255,255,255,.5)'}}>
+    
     <ScrollView style={{marginBottom:1,}}>
-      
-      
      {/* <ImageBackground source={require('../../assets/titre/face.jpg')} style={{height:200,width:WIDTH}}>
         <Video isMuted shouldPlay source={{uri}} style={{width:WIDTH,height:200,}} useNativeControls resizeMode='cover' />      
       </ImageBackground>*/}
       
-      <ScrollView horizontal style={{height:107,width:WIDTH,backgroundColor:'#000',padding:5,}}>
+      <ScrollView horizontal style={{height:107,width:WIDTH,backgroundColor:'rgba(255,255,255,.5)',padding:5,}}>
   {
     statutData.map((list,index)=>
     <React.Fragment key={index}>
@@ -200,8 +199,8 @@ const VuesFirst = (props) => {
 </View>
 
 
-      <View style={{width:WIDTH,backgroundColor:'#000',height:55,padding:10,marginTop:15}}>
-        <Text style={{color:'#fff',textAlign:'center',fontWeight:'bold',marginTop:5,fontSize:20}}>Accessoires</Text>
+      <View style={{width:WIDTH,backgroundColor:'#fff',height:55,padding:10,marginTop:15}}>
+        <Text style={{color:'#000',fontWeight:'bold',marginTop:5,fontSize:20}}>Accessoires</Text>
       </View>
       <ScrollView horizontal style={{margin:7}}>
         {
@@ -211,8 +210,8 @@ const VuesFirst = (props) => {
         }
       </ScrollView>
 
-      <View style={{width:WIDTH,backgroundColor:'#000',height:55,padding:10,marginTop:15}}>
-        <Text style={{color:'#fff',textAlign:'center',fontWeight:'bold',marginTop:5,fontSize:20}}>What's New</Text>
+      <View style={{width:WIDTH,backgroundColor:'#fff',height:55,padding:10,marginTop:15}}>
+        <Text style={{color:'#000',fontWeight:'bold',marginTop:5,fontSize:20}}>What's New</Text>
       </View>
       <View style={{flexDirection:'row',flexWrap:'wrap',justifyContent:'space-between',marginBottom:150,padding:10}}>     
       
@@ -379,7 +378,7 @@ function subscriberINUTILE(prix){ firebase.firestore()
       setPrixTotPanierUser(Number(doc.data().totalPanier))
      })}
 
-
+     const [modalOK,setModalOK]=useState(false)
                      
    function ajouter(){
     // debut ajouter tableau
@@ -389,7 +388,8 @@ function subscriberINUTILE(prix){ firebase.firestore()
       //prixPanier:Number(prixTotPanierUser)+Number(ChooseChoise[3]),
       userPanier: arrayUnion({"etat":"panier", "image": ChooseChoise[1] ,"nom": ChooseChoise[0], "prix":ChooseChoise[3],"qty":1})
     });
-    Alert.alert('Ajouté au panier avec succes!!! ')
+   // Alert.alert('Ajouté au panier avec succes!!! ')
+   setModalOK(true)
    }
 
    function annuler({image,nom,prix,}){
@@ -419,11 +419,11 @@ function subscriberINUTILE(prix){ firebase.firestore()
 
     
 
-      <ImageBackground source={{uri:ChooseChoise[1]}} style={{height:HEIGHT,marginBottom:20}}>
-      <ScrollView>
+    <ImageBackground source={require('../../assets/icons/fondchoose.jpg')} style={{height:HEIGHT,marginBottom:20}}>
+ <ScrollView>
         <View style={{flexDirection:'row',justifyContent:'space-between',margin:10}}>
-          <TouchableOpacity style={{height:50,width:50}} onPress={()=>setModalChoose(false)}>
-            <Text style={{fontSize:30,fontWeight:'800',color:'red'}}> {"<"} </Text>
+        <TouchableOpacity style={{height:40,width:40,backgroundColor:'rgba(255,255,255,0.9)',borderRadius:30}} onPress={()=>setModalChoose(false)}>
+            <Text style={{fontSize:30,fontWeight:'800',color:'rgb(249,180,45)'}}> {"<"} </Text>
           </TouchableOpacity>
           <TouchableOpacity>
             <Text style={{fontSize:30,fontWeight:'800',color:'red'}}></Text>
@@ -438,23 +438,25 @@ function subscriberINUTILE(prix){ firebase.firestore()
       }
         </ScrollView>
 
-        <View style={{backgroundColor:'#484848',borderBottomLeftRadius:30,borderBottomRightRadius:30}}>
+        <View style={{backgroundColor:'rgba(255,255,255,0.7)',borderBottomLeftRadius:30,borderBottomRightRadius:30}}>
           <View style={{flexDirection:'column',padding:10,alignContent:'center',alignSelf:'center'}}>
           <View style={{flexDirection:'row',justifyContent:'space-around',}}>
           <View style={{width:WIDTH*0.45,padding:10}}>
-            <Text style={{color:'white',fontSize:13,fontWeight:'800'}}>{ChooseChoise[0]}</Text>
-            <Text style={{color:'white',fontSize:13,fontWeight:'800'}}>origine : {ChooseChoise[6]}</Text>
-            <Text style={{color:'white',fontSize:13,fontWeight:'800'}}>stock : {ChooseChoise[7]}</Text>
+            <Text style={{color:'black',fontSize:13,fontWeight:'800'}}>{ChooseChoise[0]}</Text>
+            <Text style={{color:'black',fontSize:13,fontWeight:'800'}}>origine : {ChooseChoise[6]}</Text>
+            <Text style={{color:'black',fontSize:13,fontWeight:'800'}}>stock : {ChooseChoise[7]}</Text>
           </View>
           <View style={{width:WIDTH*0.45,padding:15}}>
-            <Text style={{color:'white',fontSize:13,fontWeight:'800'}}>Prix : {ChooseChoise[3]} fcfa</Text>
-            <Text style={{color:'white',fontSize:13,fontWeight:'800'}}>couleur : {ChooseChoise[5]}</Text>
-            <Text style={{color:'white',fontSize:13,fontWeight:'800'}}>{ChooseChoise[2]}</Text>
+            <Text style={{color:'black',fontSize:15,fontWeight:'800'}}>Prix : {ChooseChoise[3]} fcfa</Text>
+            <Text style={{color:'black',fontSize:13,fontWeight:'800'}}>couleur : {ChooseChoise[5]}</Text>
+            <Text style={{color:'black',fontSize:13,fontWeight:'800'}}>{ChooseChoise[2]}</Text>
           </View>
           </View>
+          
+          <Text style={{fontWeight:'500',padding:15}}>Le MacBook est un ordinateur portable Macintosh développé et produit par la société Apple. Le MacBook succédait à l'iBook et au PowerBook de 12 pouces dans le cadre de la transition d'Apple vers des processeurs Intel.</Text>
 
-          <TouchableOpacity onPress={()=>ajouter()} style={{backgroundColor:'green',height:50,width:200,justifyContent:'center',marginTop:10,borderRadius:10,marginBottom:10,alignSelf:'center'}}>
-            <Text style={{alignSelf:'center',fontWeight:'bold',color:'#fff'}}>Ajouter au panier</Text>
+          <TouchableOpacity onPress={()=>ajouter()} style={{backgroundColor:'rgb(249,180,45)',height:50,width:200,justifyContent:'center',marginTop:10,borderRadius:10,marginBottom:10,alignSelf:'center'}}>
+            <Text style={{alignSelf:'center',fontWeight:'bold',color:'#000'}}>Ajouter au panier</Text>
           </TouchableOpacity>
           </View>
           {/*
@@ -477,13 +479,13 @@ function subscriberINUTILE(prix){ firebase.firestore()
 
         {/** ARTICLES SIMILAIRES */}
 
-        <Text style={{alignSelf:'center',fontSize:24,fontWeight:'700',color:'white',marginTop:25}}>Autres {ChooseChoise[0]}</Text>
+        <Text style={{alignSelf:'center',fontSize:24,fontWeight:'700',color:'white',marginTop:25,marginBottom:25}}>Artricles Similaires</Text>
 
 
-        <View style={{flexDirection:'row',flexWrap:'wrap',justifyContent:'space-between',marginBottom:250,padding:15}}>
+        <View style={{flexDirection:'row',flexWrap:'wrap',justifyContent:'space-between',marginBottom:250,padding:15,backgroundColor:'rgba(255,255,255,.7)',borderRadius:20}}>
           {
             valChoose.map((list,key)=>
-              <CarreSimilaire setModalSimilaire={setModalSimilaire} onClose={()=>setModalSimilaire(false)} modalSimlaire={modalSimlaire} similaire={list.Similaire} batterie={list.batterie} couleur={list.couleur} origine={list.origine} stock={list.stock} ecran={list.ecran} price={list.prix} name={list.nom} image={list.image} size={list.taille} taille={key} key={key}  />
+              <CarreSimilaire setModalOK={setModalOK} modalOK={modalOK}  setModalSimilaire={setModalSimilaire} onClose={()=>setModalSimilaire(false)} modalSimlaire={modalSimlaire} similaire={list.Similaire} batterie={list.batterie} couleur={list.couleur} origine={list.origine} stock={list.stock} ecran={list.ecran} price={list.prix} name={list.nom} image={list.image} size={list.taille} taille={key} key={key}  />
               
             )
           }
@@ -494,6 +496,24 @@ function subscriberINUTILE(prix){ firebase.firestore()
         </ScrollView>
       </ImageBackground>
     </SafeAreaView>
+
+    {/** modal ok */}
+    <Modal animationType='fade'
+    transparent={true}
+    visible={modalOK}
+    onRequestClose={() => {
+      setModalOK(!modalOK)
+  }}
+  >
+    <SafeAreaView style={{backgroundColor:'rgba(0,0,0,0.9)',height:HEIGHT}}>
+      <View  style={{backgroundColor:'#fff',height:100,width:300,borderRadius:20,alignSelf:'center',marginTop:HEIGHT*0.4}}>
+          <Text style={{fontSize:15,fontWeight:'600',textAlign:'center',marginTop:10}}>ajouter au panier avec succes!!!</Text>
+          <TouchableOpacity style={{height:30,width:100,backgroundColor:'rgb(249, 180, 45)',borderRadius:20,alignSelf:'center',marginTop:30}} onPress={()=>setModalOK(false)}>
+            <Text style={{textAlign:'center',fontWeight:'800',fontSize:20,marginTop:3}}>OK</Text>
+          </TouchableOpacity>
+      </View>
+    </SafeAreaView>
+  </Modal>
           
   </Modal>
 
@@ -545,7 +565,6 @@ const ModPanier = ()=>{
   
     )
   }
-
 
 
   const StatutWrapper = ({modalStatut,onClose,statutdata})=>{
@@ -616,23 +635,26 @@ const ModPanier = ()=>{
     )
   }
 
-  const CarreSimilaire =({setModalSimilaire,modalSimlaire,onClose,taille,name,size,image,price,batterie,couleur,origine,stock,ecran,similaire})=>{
+  const CarreSimilaire =({setModalOK,modalOK,setModalSimilaire,modalSimlaire,onClose,taille,name,size,image,price,batterie,couleur,origine,stock,ecran,similaire})=>{
 
     return (
-      <SafeAreaView style={{width:"45%",height:240,marginTop:20,borderRadius:20,margin:1}}>
+      <SafeAreaView style={{width:"45%",height:265,marginTop:20,borderRadius:20,margin:1,backgroundColor:'rgba(240,240,240,0.7)',marginBottom:10}}>
           <TouchableOpacity style={{height:230,width:'100%',borderRadius:20,backgroundColor:'yellow'}} onPress={()=>setModalSimilaire(true)}>
-              <Image source={{uri:image}} style={{height:230,width:'100%',borderRadius:20}} />
+              <ImageBackground source={{uri:image}} style={{height:230,width:'100%',borderRadius:20}}>
+              <View style={{backgroundColor:'rgb(246,180,45)',width:105,bottom:0,position:'absolute'}}>
+                <Text style={{marginTop:4,color:'#000',fontWeight:'bold'}}> {price} fcfa </Text>
+              </View>
+              </ImageBackground>
           </TouchableOpacity>
-          <View style={{justifyContent:'space-between',flexDirection:'row',paddingLeft:7,paddingRight:7}}>
-              <Text style={{marginTop:7,color:'#fff',fontWeight:'bold',fontSize:11}}> {name.length>7? name.slice(0,7)+'...': name} </Text>
-              <Text style={{marginTop:7,color:'#fff',fontWeight:'bold',fontSize:11}}> {price} fcfa</Text>
+          <View style={{justifyContent:'center',flexDirection:'row',paddingLeft:7,paddingRight:7}}>
+            <Text style={{marginTop:7,color:'#000',fontWeight:'bold',textAlign:'center',fontSize:12}}> {name.length>15? name.slice(0,15)+"...":name}</Text>
           </View>
-          {modalSimlaire && <ModalSim  batterie={batterie} couleur={couleur} origine={origine} stock={stock} ecran={ecran} price={price} name={name} image={image} size={taille}  setModalSimilaire={setModalSimilaire} modalSimlaire={modalSimlaire} onClosef={onClose}  /> }
+          {modalSimlaire && <ModalSim modalOK={modalOK} setModalOK={setModalOK}  batterie={batterie} couleur={couleur} origine={origine} stock={stock} ecran={ecran} price={price} name={name} image={image} size={taille}  setModalSimilaire={setModalSimilaire} modalSimlaire={modalSimlaire} onClosef={onClose}  /> }
       </SafeAreaView>
     )
   }
 
-  const ModalSim= ({modalSimlaire,onClose,setModalSimilaire,name,size,image,price,batterie,couleur,origine,stock,ecran,})=>{
+  const ModalSim= ({setModalOK,modalOK,modalSimlaire,onClose,setModalSimilaire,name,size,image,price,batterie,couleur,origine,stock,ecran,})=>{
     const {currentUserNewNav, setCurrentUserNewNav}=useContext(UserContextNewNav)
     useEffect(() =>{
       onAuthStateChanged(auth, (currentUser)=>{
@@ -649,7 +671,9 @@ const ModPanier = ()=>{
         userPanier: arrayUnion({"etat":"panier", "image": image ,"nom": name, "prix":price,"qty":1})
       });
      // setModalComm(!modalComm)
-      Alert.alert('Ajouté au panier avec succes!!! ')
+    //  Alert.alert('Ajouté au panier avec succes!!! ')
+    setModalSimilaire(false)
+    setModalOK(true)
   //    console.log(washingtonRef) 
      }
      function ajusterPrix(prix){
@@ -666,7 +690,10 @@ const ModPanier = ()=>{
     } 
      
       //fin ajout panier
-    useEffect(()=>{ObtenirDonneesuser()},[])
+    useEffect(()=>{
+      ObtenirDonneesuser()    
+    },[])
+
     
        //COMMENTAIRE
     
@@ -692,17 +719,19 @@ const ModPanier = ()=>{
     return(
       <Modal visible={modalSimlaire} animationType='fade'>
         <SafeAreaView style={{height:HEIGHT,backgroundColor:'#000'}}>
+        <ImageBackground source={require('../../assets/icons/fondchoose.jpg')} style={{height:HEIGHT,marginBottom:20}}>
+
         <ScrollView>
         <View style={{flexDirection:'row',justifyContent:'space-between',margin:10}}>
-          <TouchableOpacity style={{height:40,width:40}} onPress={()=>setModalSimilaire(false)}>
-            <Text style={{fontSize:30,fontWeight:'800',color:'red'}}> X </Text>
+        <TouchableOpacity style={{height:40,width:40,backgroundColor:'rgba(255,255,255,0.5)',borderRadius:30}} onPress={()=>setModalSimilaire(false)}>
+          <Text style={{fontSize:26,fontWeight:'800',color:'rgb(249,180,45)',textAlign:'center',marginRight:8,marginTop:2}}> {"<"} </Text>
           </TouchableOpacity>
           <TouchableOpacity>
             <Text style={{fontSize:30,fontWeight:'800',color:'red'}}></Text>
           </TouchableOpacity>
         </View>
 
-        <ScrollView horizontal style={{height:400,width:WIDTH,backgroundColor:'#FFF'}}>
+        <ScrollView horizontal style={{width:WIDTH,}}>
         {
         tab.map((list,key)=>
           <Image resizeMode='contain' resizeMethod='resize' key={key} style={{height:400,width:WIDTH*0.95,marginRight:4}} source={{uri:image}} />
@@ -710,29 +739,34 @@ const ModPanier = ()=>{
       }
         </ScrollView>
 
-        <View style={{backgroundColor:'#484848',borderBottomLeftRadius:30,borderBottomRightRadius:30}}>
-          <View style={{flexDirection:'column',padding:10,alignContent:'center',alignSelf:'center'}}>
+        <View style={{backgroundColor:'rgba(255,255,255,0.9)',borderBottomLeftRadius:30,borderBottomRightRadius:30}}>
+ <View style={{flexDirection:'column',padding:10,alignContent:'center',alignSelf:'center'}}>
           <View style={{flexDirection:'row',justifyContent:'space-around',}}>
           <View style={{width:WIDTH*0.45,padding:10}}>
-            <Text style={{color:'white',fontSize:13,fontWeight:'800'}}>{name}</Text>
-            <Text style={{color:'white',fontSize:13,fontWeight:'800'}}>origine : {origine}</Text>
-            <Text style={{color:'white',fontSize:13,fontWeight:'800'}}>stock : {stock}</Text>
+            <Text style={{color:'#000',fontSize:13,fontWeight:'800'}}>{name}</Text>
+            <Text style={{color:'#000',fontSize:13,fontWeight:'800'}}>origine : {origine}</Text>
+            <Text style={{color:'#000',fontSize:13,fontWeight:'800'}}>stock : {stock}</Text>
           </View>
           <View style={{width:WIDTH*0.45,padding:15}}>
-            <Text style={{color:'white',fontSize:13,fontWeight:'800'}}>Prix : {price} fcfa</Text>
-            <Text style={{color:'white',fontSize:13,fontWeight:'800'}}>couleur : {couleur}</Text>
-            <Text style={{color:'white',fontSize:13,fontWeight:'800'}}>{batterie}</Text>
+            <Text style={{color:'#000',fontSize:13,fontWeight:'800'}}>Prix : {price} fcfa</Text>
+            <Text style={{color:'#000',fontSize:13,fontWeight:'800'}}>couleur : {couleur}</Text>
+            <Text style={{color:'#000',fontSize:13,fontWeight:'800'}}>{batterie}</Text>
           </View>
           </View>
+
+          <Text style={{fontWeight:'500',padding:15}}>Le MacBook est un ordinateur portable Macintosh développé et produit par la société Apple. Le MacBook succédait à l'iBook et au PowerBook de 12 pouces dans le cadre de la transition d'Apple vers des processeurs Intel.</Text>
           
-          <TouchableOpacity onPress={()=>ajouter()} style={{backgroundColor:'green',height:50,width:200,justifyContent:'center',marginTop:10,borderRadius:10,marginBottom:10,alignSelf:'center'}}>
-            <Text style={{alignSelf:'center',fontWeight:'bold',color:'#fff'}}>Ajouter au panier</Text>
+          <TouchableOpacity onPress={()=>ajouter()} style={{backgroundColor:'rgb(249,180,45)',height:50,width:200,justifyContent:'center',marginTop:10,borderRadius:10,marginBottom:10,alignSelf:'center'}}>
+            <Text style={{alignSelf:'center',fontWeight:'bold',color:'#000'}}>Ajouter au panier</Text>
           </TouchableOpacity>
           </View>
 
         </View>
         </ScrollView>
+
+        </ImageBackground>
         </SafeAreaView>
+        
       </Modal>
     )
   }
@@ -751,8 +785,8 @@ const ModPanier = ()=>{
     return(
       <TouchableOpacity onPress={()=>VoirChoose()}>
       <View style={{flexDirection:'column'}}>
-        <Image source={{uri:image}} style={{height:120,width:150,borderRadius:50,backgroundColor:'red',margin:5}} />
-        <Text style={{color:'#fff',textAlign:'center',fontWeight:'bold'}}>{name}</Text>
+        <Image source={{uri:image}} style={{height:150,width:150,borderRadius:20,backgroundColor:'red',margin:5}} />
+        <Text style={{color:'rgba(0,0,0,.5)',textAlign:'center',fontWeight:'bold'}}>{name}</Text>
       </View>
       </TouchableOpacity>
     )

@@ -170,7 +170,7 @@ const Vue7 = (props) => {
   const [modalStatut,setModalStatut]= useState(false)
 
   return (
-    <SafeAreaView style={{backgroundColor:'#000'}}>
+    <SafeAreaView style={{backgroundColor:'rgba(255,255,255,0.1)'}}>
     <ScrollView style={{marginBottom:1,}}>
       
       

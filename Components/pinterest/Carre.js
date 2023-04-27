@@ -20,17 +20,20 @@ const Carre = ({taille,name,size,image,price,batterie,couleur,origine,stock,ecra
   }
 
   return (
-    <SafeAreaView style={{width:"45%",height:310,marginTop:20,borderRadius:20,margin:1}}>
-        <TouchableOpacity style={{height:250,width:'100%',borderRadius:20,backgroundColor:'yellow'}} onPress={()=>VoirChoose(taille)}>
-            <Image source={{uri:image}} style={{height:250,width:'100%',borderRadius:20}} />
-        </TouchableOpacity>
-        <View style={{justifyContent:'space-between',flexDirection:'row',paddingLeft:7,paddingRight:7}}>
-            <Text style={{marginTop:7,color:'#000',fontWeight:'bold',fontSize:10}}> {name.length>7 ? name.slice(0,10)+"...":name } </Text>
-            <Text style={{marginTop:7,color:'#000',fontWeight:'bold',fontSize:10}}> {price}fcfa </Text>
-            
+    <SafeAreaView style={{width:"45%",height:290,marginTop:20,borderRadius:20,margin:1,backgroundColor:'rgba(240,240,240,0.7)'}}>
+    <TouchableOpacity style={{height:250,width:'100%',borderRadius:20,backgroundColor:'yellow'}} onPress={()=>VoirChoose()}>
+        <ImageBackground source={{uri:image}} style={{height:250,width:'100%',borderRadius:20}}>
+        <View style={{backgroundColor:'rgb(246,180,45)',width:100,position:'absolute',bottom:0}}>
+        <Text style={{marginTop:4,color:'#000',fontWeight:'bold'}}> {price} fcfa </Text>
         </View>
-      
-    </SafeAreaView>
+        </ImageBackground>
+    </TouchableOpacity>
+    <View style={{justifyContent:'center',flexDirection:'row',paddingLeft:7,paddingRight:7}}>
+        <Text style={{marginTop:7,color:'#000',fontWeight:'bold',textAlign:'center',fontSize:12}}> {name.length>15? name.slice(0,15)+"...":name}</Text>
+        
+    </View>
+  
+</SafeAreaView>
   )
 }
 

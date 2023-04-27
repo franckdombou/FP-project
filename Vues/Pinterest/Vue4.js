@@ -401,7 +401,7 @@ function subscriberINUTILE(prix){ firebase.firestore()
     });
    // setModalComm(!modalComm)
    // Alert.alert('Ajouté au panier avec succes!!! ')
-   setModalOK(true)
+ 
 //    console.log(washingtonRef) 
    }
    //FIN COMMENTAIRE
@@ -422,7 +422,7 @@ function subscriberINUTILE(prix){ firebase.firestore()
 
     
 
-      <ImageBackground source={require('../../assets/icons/fondiphon2.png')} style={{height:HEIGHT,marginBottom:20}}>
+      <ImageBackground source={require('../../assets/icons/fonfMac.jpg')} style={{height:HEIGHT,marginBottom:20}}>
       <ScrollView style={{}}>
         <View style={{flexDirection:'row',justifyContent:'space-between',margin:10}}>
           <TouchableOpacity style={{height:40,width:40,backgroundColor:'rgba(255,255,255,0.5)',borderRadius:50}} onPress={()=>setModalChoose(false)}>
@@ -458,6 +458,9 @@ function subscriberINUTILE(prix){ firebase.firestore()
           </View>
           </View>
 
+          
+          <Text style={{fontWeight:'500',padding:15}}>Le MacBook est un ordinateur portable Macintosh développé et produit par la société Apple. Le MacBook succédait à l'iBook et au PowerBook de 12 pouces dans le cadre de la transition d'Apple vers des processeurs Intel.</Text>          
+
           <TouchableOpacity onPress={()=>ajouter()} style={{backgroundColor:'rgb(249, 180, 45)',height:50,width:200,justifyContent:'center',marginTop:10,borderRadius:10,marginBottom:10,alignSelf:'center'}}>
             <Text style={{alignSelf:'center',fontWeight:'bold',color:'#000'}}>Ajouter au panier</Text>
           </TouchableOpacity>
@@ -492,7 +495,7 @@ function subscriberINUTILE(prix){ firebase.firestore()
         <View style={{flexDirection:'row',flexWrap:'wrap',justifyContent:'space-between',marginBottom:250,padding:15,backgroundColor:'rgba(255,255,255,0.9)',borderRadius:20}}>
           {
             valChoose.map((list,key)=>
-              <CarreSimilaire setModalSimilaire={setModalSimilaire} onClose={()=>setModalSimilaire(false)} modalSimlaire={modalSimlaire} similaire={list.Similaire} batterie={list.batterie} couleur={list.couleur} origine={list.origine} stock={list.stock} ecran={list.ecran} price={list.prix} name={list.nom} image={list.image} size={list.taille} taille={key} key={key}  />
+              <CarreSimilaire setModalOK={setModalOK} modalOK={modalOK} setModalSimilaire={setModalSimilaire} onClose={()=>setModalSimilaire(false)} modalSimlaire={modalSimlaire} similaire={list.Similaire} batterie={list.batterie} couleur={list.couleur} origine={list.origine} stock={list.stock} ecran={list.ecran} price={list.prix} name={list.nom} image={list.image} size={list.taille} taille={key} key={key}  />
               
             )
           }
@@ -642,23 +645,27 @@ const ModPanier = ()=>{
     )
   }
 
-  const CarreSimilaire =({setModalSimilaire,modalSimlaire,onClose,taille,name,size,image,price,batterie,couleur,origine,stock,ecran,similaire})=>{
+  const CarreSimilaire =({setModalOK,modalOK,setModalSimilaire,modalSimlaire,onClose,taille,name,size,image,price,batterie,couleur,origine,stock,ecran,similaire})=>{
 
     return (
-      <SafeAreaView style={{width:"45%",height:240,marginTop:20,borderRadius:20,margin:1}}>
-          <TouchableOpacity style={{height:230,width:'100%',borderRadius:20,backgroundColor:'yellow'}} onPress={()=>setModalSimilaire(true)}>
-            <Image source={{uri:image}} style={{height:230,width:'100%',borderRadius:20}} />
-          </TouchableOpacity>
-          <View style={{justifyContent:'space-between',flexDirection:'row',paddingLeft:7,paddingRight:7}}>
-            <Text style={{marginTop:7,color:'#000',fontWeight:'bold',fontSize:12}}> {name.length>7 ? name.slice(0,7)+'...':name} </Text>
-            <Text style={{marginTop:7,color:'#000',fontWeight:'bold',fontSize:12}}> {price} fcfa </Text>
+      <SafeAreaView style={{width:"45%",height:260,marginTop:20,borderRadius:20,margin:1,backgroundColor:'rgba(240,240,240,0.7)'}}>
+
+      <TouchableOpacity style={{height:230,width:'100%',borderRadius:20,backgroundColor:'yellow'}} onPress={()=>setModalSimilaire(true)}>
+          <ImageBackground source={{uri:image}} style={{height:230,width:'100%',borderRadius:20}}>
+          <View style={{backgroundColor:'rgb(246,180,45)',width:105}}>
+            <Text style={{marginTop:4,color:'#000',fontWeight:'bold'}}> {price} fcfa </Text>
           </View>
-          {modalSimlaire && <ModalSim  batterie={batterie} couleur={couleur} origine={origine} stock={stock} ecran={ecran} price={price} name={name} image={image} size={taille}  setModalSimilaire={setModalSimilaire} modalSimlaire={modalSimlaire} onClosef={onClose}  /> }
-      </SafeAreaView>
+          </ImageBackground>
+      </TouchableOpacity>
+      <View style={{justifyContent:'center',flexDirection:'row',paddingLeft:7,paddingRight:7}}>
+        <Text style={{marginTop:7,color:'#000',fontWeight:'bold',textAlign:'center',fontSize:12}}> {name.length>15? name.slice(0,15)+"...":name}</Text>
+      </View>
+      {modalSimlaire && <ModalSim modalOK={modalOK} setModalOK={setModalOK} batterie={batterie} couleur={couleur} origine={origine} stock={stock} ecran={ecran} price={price} name={name} image={image} size={taille}  setModalSimilaire={setModalSimilaire} modalSimlaire={modalSimlaire} onClosef={onClose}  /> }
+  </SafeAreaView>
     )
   }
 
-  const ModalSim= ({modalSimlaire,onClose,setModalSimilaire,name,size,image,price,batterie,couleur,origine,stock,ecran,})=>{
+  const ModalSim= ({setModalOK,modalOK,modalSimlaire,onClose,setModalSimilaire,name,size,image,price,batterie,couleur,origine,stock,ecran,})=>{
     
     const {currentUserNewNav, setCurrentUserNewNav}=useContext(UserContextNewNav)
     useEffect(() =>{
@@ -677,7 +684,9 @@ const ModPanier = ()=>{
         userPanier: arrayUnion({"etat":"panier", "image": image ,"nom": name, "prix":price,"qty":1})
       });
      // setModalComm(!modalComm)
-      Alert.alert('Ajouté au panier avec succes!!! ')
+      //Alert.alert('Ajouté au panier avec succes!!! ')
+      setModalSimilaire(false)
+      setModalOK(true)
   //    console.log(washingtonRef) 
      }
      function ajusterPrix(prix){
@@ -715,17 +724,19 @@ const ModPanier = ()=>{
           setCurrentPanier(doc.data().userPanier)
           setPrixTotPanierUser(Number(doc.data().totalPanier))
          })}
+
+        
     
     
     return(
       <Modal visible={modalSimlaire} animationType='fade'>
         <SafeAreaView style={{height:HEIGHT,backgroundColor:'#000'}}>
-      <ImageBackground source={require('../../assets/icons/fondiphon2.png')} style={{height:HEIGHT,marginBottom:20}}>
+      <ImageBackground source={require('../../assets/icons/fonfMac.jpg')} style={{height:HEIGHT,marginBottom:20,backgroundColor:'#000'}}>
           
         <ScrollView>
         <View style={{flexDirection:'row',justifyContent:'space-between',margin:10}}>
           <TouchableOpacity style={{height:40,width:40,backgroundColor:'rgba(255,255,255,0.5)',borderRadius:30}} onPress={()=>setModalSimilaire(false)}>
-            <Text style={{fontSize:25,fontWeight:'800',color:'rgb(249, 180, 45)',textAlign:'center',marginTop:5}}> X </Text>
+          <Text style={{fontSize:26,fontWeight:'800',color:'rgb(249,180,45)',textAlign:'center',marginRight:8,marginTop:2}}> {"<"} </Text>
           </TouchableOpacity>
           <TouchableOpacity>
             <Text style={{fontSize:30,fontWeight:'800',color:'red'}}></Text>
@@ -740,7 +751,7 @@ const ModPanier = ()=>{
       }
         </ScrollView>
 
-        <View style={{backgroundColor:'rgba(255,255,255,0.5)',borderBottomLeftRadius:30,borderBottomRightRadius:30}}>
+        <View style={{backgroundColor:'rgba(255,255,255,0.9)',borderBottomLeftRadius:30,borderBottomRightRadius:30}}>
           <View style={{flexDirection:'column',padding:10,alignContent:'center',alignSelf:'center'}}>
           <View style={{flexDirection:'row',justifyContent:'space-around',}}>
           <View style={{width:WIDTH*0.45,padding:10}}>
@@ -756,6 +767,8 @@ const ModPanier = ()=>{
             <Text style={{color:'#000',fontSize:12,fontWeight:'800'}}>64Go</Text>
           </View>
           </View>
+          <Text style={{fontWeight:'500',padding:15}}>Le MacBook est un ordinateur portable Macintosh développé et produit par la société Apple. Le MacBook succédait à l'iBook et au PowerBook de 12 pouces dans le cadre de la transition d'Apple vers des processeurs Intel.</Text>
+
           <TouchableOpacity onPress={()=>ajouter()} style={{backgroundColor:'rgb(249, 180, 45)',height:50,width:200,justifyContent:'center',marginTop:10,borderRadius:10,marginBottom:10,alignSelf:'center'}}>
             <Text style={{alignSelf:'center',fontWeight:'bold',color:'#000'}}>Ajouter au panier</Text>
           </TouchableOpacity>
@@ -766,6 +779,9 @@ const ModPanier = ()=>{
         </ScrollView>
         </ImageBackground>
         </SafeAreaView>
+
+      
+        
       </Modal>
     )
   }

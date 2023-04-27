@@ -548,10 +548,10 @@ const Carte =({likes,imageTitre,titre,type,props,modalPhoto,setModalPhoto,commen
           <View style={{flexDirection:'row',marginLeft:10,marginTop:5,marginBottom:10}}>
               { likes.includes(donneeUserEmail) ? 
               <TouchableOpacity style={{padding:5}} onPress={removeLike}>
-                <Ionicons name="heart" size={25} color={"rgb(249, 180, 45)"} />
+                <Ionicons name="heart" size={25} color={"red"} />
               </TouchableOpacity> :
               <TouchableOpacity style={{padding:5}} onPress={ajouterLike}>
-              <Ionicons name="heart" size={25}  color={"#000"} />
+              <Ionicons  name="heart" size={25}  color={"#000"} />
               </TouchableOpacity>
               }
 
